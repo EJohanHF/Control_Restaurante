@@ -1,0 +1,328 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Centro_Costos.RptPrecioVentaPlato"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Centro_Costos"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="800">
+    <!--ESTILO DE SCROLL-->
+    <UserControl.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="ScrollBarRectangle" Property="Width" Value="300" />
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <!--ff8e1e-->
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="8" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="8" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="8" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.0*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <ContentControl Grid.Row="0" Grid.Column="0" Background="gray" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="1">
+                    <TextBlock Margin="20,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="30"
+                                       Text="Precio Venta por Plato" FontWeight="Thin"/>
+                    <!--<Label Content="{Binding Operacion}"  HorizontalAlignment="Center" IsEnabled="False"></Label>-->
+                </StackPanel>
+            </ContentControl>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.25*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.9*"/>
+            </Grid.RowDefinitions>
+            <materialDesign:ColorZone Mode="PrimaryDark" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Padding="5" CornerRadius="3" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,0,5,0">
+                        <RadioButton x:Name="rbtDia" GroupName="RbFechas" Content="Dia" Margin="5" Background="#F87E00" Command="{Binding RbtTagCommand}" 
+                                             CommandParameter="{Binding rbbtdia}" IsChecked="True"/>
+
+                        <DatePicker SelectedDateFormat="Short" VerticalAlignment="Center" IsEnabled="{Binding Path=IsChecked, ElementName=rbtDia}" 
+                                    Language="ES" SelectedDate="{Binding CentroCostos.Dia}" Style="{StaticResource MaterialDesignOutlinedTextFieldDatePicker}" 
+                                    FontSize="15"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,0,5,0">
+                        <RadioButton x:Name="rbtMes" GroupName="RbFechas" Content="Mes"  Margin="5" Background="#F87E00" Command="{Binding RbtTagCommand}" 
+                                             CommandParameter="{Binding rbbtmes}" IsChecked="False"/>
+                        <StackPanel Orientation="Horizontal" IsEnabled="{Binding Path=IsChecked, ElementName=rbtMes}">
+                            <ComboBox IsEnabled="{Binding IsEnabledComboAño}" Margin="2" Height="34" FontSize="15" 
+                                                  Grid.Column="1" materialDesign:HintAssist.Hint="Año"
+                                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"
+                                                        SelectedItem="{Binding AñoSelected}"
+                                                        IsEditable="False" ItemsSource="{Binding DataAños}" 
+                                                        DisplayMemberPath="DESCRPCION"/>
+                            <ComboBox Margin="2" Height="34" FontSize="15" Grid.Column="0" materialDesign:HintAssist.Hint="Buscar por Mes"
+                                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"
+                                                        SelectedItem="{Binding MesSelected}"
+                                                        IsEditable="False" ItemsSource="{Binding DataMeses}" 
+                                                        DisplayMemberPath="DESCRPCION_MES"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                </StackPanel>
+            </materialDesign:ColorZone>
+            
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" BorderBrush="#F87E00" BorderThickness="1" Grid.Column="1" Grid.Row="1" Background="#fff">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.4*"/>
+                        <RowDefinition Height="0.6*"/>
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="#F87E00" BorderThickness="0,3,0,1" Grid.Row="0" Margin="10">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.9*"/>
+                                <RowDefinition Height="0.1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="0.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Label Margin="2" VerticalAlignment="Center" FontSize="17">Super Categoria:</Label>
+                                <Label Margin="2" VerticalAlignment="Center" FontSize="17">Categoria:</Label>
+                                <Label Margin="2" VerticalAlignment="Center" FontSize="17">Grupo:</Label>
+                                <Label Margin="2" VerticalAlignment="Center" FontSize="17">Plato:</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
+                                <ComboBox Margin="2" Height="34" FontSize="16" materialDesign:HintAssist.Hint="Seleccione Super Categoria" 
+                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" IsEditable="True" 
+                                        SelectedItem="{Binding SCatSelected}" ItemsSource="{Binding ComboSuperCat}" 
+                                        SelectedValue="{Binding SCategoria.idscat}" DisplayMemberPath="nomscat" 
+                                        SelectedValuePath="idscat" VerticalAlignment="Center"/>
+
+                                <ComboBox  Margin="2" Height="34" FontSize="16" materialDesign:HintAssist.Hint="Seleccione Categoria" 
+                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" IsEditable="True" 
+                                        SelectedItem="{Binding CatSelected}" ItemsSource="{Binding ComboCat}" 
+                                        SelectedValue="{Binding Categoria.idcat}" DisplayMemberPath="nomscat" 
+                                        SelectedValuePath="idcat"  VerticalAlignment="Center"/>
+
+                                <ComboBox  Margin="2" Height="34" FontSize="16" materialDesign:HintAssist.Hint="Seleccione Grupo" 
+                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" IsEditable="True" 
+                                        SelectedItem="{Binding GrupSelected}" ItemsSource="{Binding ComboGrupo}" 
+                                        SelectedValue="{Binding Grupo.idgrup}" DisplayMemberPath="nomgrup" 
+                                        SelectedValuePath="idgrup" VerticalAlignment="Center"/>
+
+                                <ComboBox Margin="2" Height="34" FontSize="16" materialDesign:HintAssist.Hint="Seleccione Plato" 
+                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" IsEditable="True" 
+                                        SelectedItem="{Binding PlatoSelected}" ItemsSource="{Binding ComboPlato}" 
+                                        SelectedValue="{Binding Platos.idplato}" DisplayMemberPath="nomplato" 
+                                        SelectedValuePath="idplato" VerticalAlignment="Center"/>
+                                
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                                <Button VerticalAlignment="Center" Width="120" Height="40" Grid.Row="0" Margin="10,10,10,0" HorizontalAlignment="Center" 
+                                    Style="{StaticResource MaterialDesignFlatButtonInfo}"
+                                    Command="{Binding BuscarPorFechaCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Magnify" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Buscar"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Grid Grid.Row="1" Margin="10">
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.7*"/>
+                                <ColumnDefinition Width="0.3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.1*"/>
+                                <RowDefinition Height="0.1*"/>
+                                <RowDefinition Height="0.1*"/>
+                                <RowDefinition Height="0.7*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*" />
+                                    <ColumnDefinition Width="0.5*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
+                                    <Label Content="Utilidad" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                                    <Label Content="Recargo de Consumo" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                                    <Label Content="Impuesto General a la Venta" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                        <TextBox Grid.Column="1" Width="50" FontSize="17" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                                Height="34" Text="{Binding PorcentajeUtilidad, UpdateSourceTrigger=PropertyChanged}" FontWeight="Regular"/>
+                                        <Label Content="%" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                        <TextBox Grid.Column="1" Width="50" FontSize="17" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                                Height="34" Text="{Binding PorcentajeRC, UpdateSourceTrigger=PropertyChanged}" FontWeight="Regular"/>
+                                        <Label Content="%" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                        <TextBox Grid.Column="1" Width="50" FontSize="17" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                                Height="34" Text="{Binding PorcentajeIgv, UpdateSourceTrigger=PropertyChanged}" FontWeight="Regular"/>
+                                        <Label Content="%" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                            <!--<StackPanel Grid.Row="0" Orientation="Horizontal">
+                                <Label Content="Utilidad" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                                <TextBox Grid.Column="1" Width="50" FontSize="17" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                                Height="34" Text="{Binding PorcentajeUtilidad, UpdateSourceTrigger=PropertyChanged}" FontWeight="Regular"/>
+                                <Label Content="%" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <Label Content="Impuesto General a la Venta" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                                <TextBox Grid.Column="1" Width="50" FontSize="17" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                                Height="34" Text="{Binding PorcentajeIgv, UpdateSourceTrigger=PropertyChanged}" FontWeight="Regular"/>
+                                <Label Content="%" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <Label Content="Recargo de Consumo" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                                <TextBox Grid.Column="1" Width="50" FontSize="17" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                                Height="34" Text="{Binding PorcentajeRC, UpdateSourceTrigger=PropertyChanged}" FontWeight="Regular"/>
+                                <Label Content="%" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" FontWeight="Medium"/>
+                            </StackPanel>-->
+                            
+                            <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="5" Margin="5" Background="#fff">
+                                    <Label Content="Costo Unitario de Producción" ToolTip="Costo Unitario de produccion por plato" Foreground="#000" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+
+                                <!--<materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="10" Margin="5" Background="#fff">
+                                    <Label Content="Costo Total de Venta" ToolTip="= Costo Unitario de Producción" Foreground="#000" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>-->
+                                
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="5" Margin="5" Background="#fff">
+                                    <Label Content="Utilidad" ToolTip="Costo Unitario de produccion x Porcentaje de Utilidad" Foreground="#000" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3" Padding="5" Margin="5" Background="#fff">
+                                    <TextBlock TextWrapping="Wrap" Text="Precio de Venta Final sin IGV" ToolTip="Costo Unitario de produccion + Utilidad" Foreground="#000" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="5" Margin="5" Background="#fff">
+                                    <Label Content="IGV" ToolTip="Costo Unitario de produccion x Porcentaje de IGV" Foreground="#000" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="5" Margin="5" Background="#fff">
+                                    <Label Content="RC" ToolTip="Costo Unitario de produccion x Porcentaje de RC" Foreground="#000" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3" Padding="5" Margin="5" Background="#fff">
+                                    <TextBlock TextWrapping="Wrap" Text="Precio de Venta Final con IGV" ToolTip="Precio de Venta sin IGV + IGV" Foreground="#000" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+                            </StackPanel>
+                            
+                            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="5" Margin="2" Background="#F87E00">
+                                    <Label Content="{Binding CentroCostos.CostoUnitarioProduccion}" ToolTip="Costo Unitario de produccion por plato" Foreground="#fff" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+
+                                <!--<materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="10" Margin="3" Background="#F87E00">
+                                    <Label Content="{Binding CentroCostos.CostoTotalVenta}" ToolTip="= Costo Unitario de Producción" Foreground="#fff" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>-->
+
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="5" Margin="3" Background="#F87E00">
+                                    <Label Content="{Binding CentroCostos.Utilidad}" ToolTip="Costo Unitario de produccion x Porcentaje de Utilidad" Foreground="#fff" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+                                
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3" Padding="5" Margin="3" Background="#FFF">
+                                    <Label Content="{Binding CentroCostos.PrecioVentaSinIVA}" ToolTip="Costo Unitario de produccion + Utilidad" Foreground="#000" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="5" Margin="3" Background="#F87E00">
+                                    <Label Content="{Binding CentroCostos.IGV}" ToolTip="Costo Unitario de produccion x Porcentaje de Utilidad" Foreground="#fff" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+                                
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="5" Margin="3" Background="#F87E00">
+                                    <Label Content="{Binding CentroCostos.RC}" ToolTip="Costo Unitario de produccion x Porcentaje de Utilidad" Foreground="#fff" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3" Padding="5" Margin="3" Background="#F87E00">
+                                    <Label Content="{Binding CentroCostos.PrecioVentaConIVA}" ToolTip="Precio de Venta sin IGV + IGV" Foreground="#fff" FontSize="20" VerticalAlignment="Center"/>
+                                </materialDesign:Card>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

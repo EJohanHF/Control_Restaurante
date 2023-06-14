@@ -1,0 +1,187 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Dialogs.DialogXstore"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:local1="clr-namespace:Capa_Presentacion_WPF"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="800" Height="auto">
+    <UserControl.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <!--<Setter TargetName="ScrollBarRectangle" Property="Width" Value="300" />-->
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="20" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="20" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="20" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="txtEscritura_p" Text="{Binding textoEscritura}" Grid.Column="2" Background="White" 
+                    BorderThickness="2.5" Margin="10,10,10,10" FontSize="15" GotFocus="txtEscritura" HorizontalAlignment="Stretch" TextAlignment="Center"
+                    Grid.Row="0" Height="30"/>
+        <ItemsControl ItemsSource="{Binding DatasDetDescripcionesGeneral}" Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"   />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Width="auto" Background="Black" Foreground="#FFF"  Height="auto" Margin="10,1,10,2"
+                                Tag="{Binding ID}" Content="{Binding DET_DESCRIPTION}" ToolTip="{Binding DET_DESCRIPTION}"
+                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}},
+                            Path=DataContext.clickup}"  CommandParameter="{Binding ID}"/>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--<Line X1="10" Y1="10" X2="990" Y2="10" Stroke="Black" StrokeThickness="4" Grid.Row="2"/>-->
+        <ScrollViewer Width="auto" HorizontalAlignment="Center" HorizontalScrollBarVisibility="Auto" 
+                        VerticalScrollBarVisibility="Auto" Grid.Row="2">
+            <DockPanel HorizontalAlignment="Center">
+                <ItemsControl ItemsSource="{Binding ContractsListCollectionView}">
+                    <ItemsControl.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Center">
+                                                    <Border Height="250">
+                                                        <GroupBox Header="{Binding Name}" FontWeight="bold" HorizontalAlignment="Center">
+                                                            <ItemsPresenter/>
+                                                        </GroupBox>
+                                                    </Border>
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </ItemsControl.GroupStyle>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+
+                            <WrapPanel Orientation="Vertical"/>
+
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Chip Background="#4FC3F7" Width="94.5" Height="25" FontSize="20000" Margin="0,0,0,3" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}},
+                            Path=DataContext.clickup2}"  CommandParameter="{Binding ID}">
+                                <!--MENU-->
+                                <!--<TextBlock Grid.Row="1" TextWrapping="Wrap" Text="{Binding DET_DESCRIPTION}" HorizontalAlignment="Center" FontSize="11.2" Foreground="#fff"/>-->
+                                <Label Grid.Row="1" Content="{Binding DET_DESCRIPTION}" HorizontalContentAlignment="Center" FontSize="11.2" Foreground="#fff"/>
+                            </materialDesign:Chip>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </DockPanel>
+        </ScrollViewer>
+        <!--<Line X1="10" Y1="10" X2="990" Y2="10" Stroke="Black" StrokeThickness="4" Grid.Row="4"/>-->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="3">
+            <DockPanel>
+                <local1:Teclado HorizontalAlignment="Center" VerticalAlignment="Stretch" 
+                            Grid.Row="1" x:Name="teclado" Height="Auto" Width="746"/>
+                <StackPanel Orientation="Vertical" Width="124" HorizontalAlignment="Right" 
+                        VerticalAlignment="Stretch" Margin="0,10,0,0">
+                    <Button Margin="0,10,0,10"  Style="{StaticResource MaterialDesignFlatButtonSuccess}" Command="{Binding GuardarComentario}" CommandParameter="{Binding ElementName=txtEscritura_p}" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ContentSaveSettings" Margin="0,0,10,0"/>
+                            <TextBlock FontSize="12.5"  Text="GUARDAR"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignFlatButtonDanger}" Command="{Binding CerrarDialog}" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="RemoveCircle" Margin="0,0,10,0"/>
+                            <TextBlock FontSize="12.5" Text="CANCELAR"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0,10,0,10" Style="{StaticResource MaterialDesignRaisedButton}"  
+                        Command="{Binding Limpiar}"  Background="#33FFA5"  >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Broom" Margin="0,0,10,0"/>
+                            <TextBlock FontSize="12.5"  Text="LIMPIAR"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

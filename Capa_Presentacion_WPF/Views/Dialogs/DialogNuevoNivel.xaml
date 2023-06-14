@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Dialogs.DialogNuevoNivel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Dialogs"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="300" MaxWidth="300" Loaded="UserControl_Loaded" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Content="{Binding TituloDialog}" Tag="{Binding TipoDialog}"/>
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="1">
+            <TextBox Margin="10" Grid.Column="1" FontSize="15" x:Name="txtNombre"
+                materialDesign:HintAssist.Hint="Nombre del Nivel" Focusable="True"
+                Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Text="{Binding TextoDialog}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" x:Name="Botones">
+            <Button Margin="10" Style="{StaticResource MaterialDesignFlatButtonSuccess}"
+                    Command="{Binding AceptarCommand}" IsDefault="False" Content="ACEPTAR"/>
+
+            <Button Margin="10" Style="{StaticResource MaterialDesignFlatButtonDanger}" IsDefault="True"
+                                Command="{Binding CancelarCommand}" Content="CANCELAR" Width="107">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

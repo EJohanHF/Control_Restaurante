@@ -1,0 +1,289 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Reportes.Kardex.RptKardexGeneral"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Reportes.Kardex"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <!--ESTILO DE SCROLL-->
+    <UserControl.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <!--<Setter TargetName="ScrollBarRectangle" Property="Width" Value="300" />-->
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="20" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <!--ff8e1e-->
+            <Setter Property="Background" Value="AliceBlue" />
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="20" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="20" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.05*" />
+            <ColumnDefinition Width="0.9*" />
+            <ColumnDefinition Width="0.05*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid Background="#FFF" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*" />
+                    <RowDefinition Height="0.3*" />
+                    <RowDefinition Height="0.6*" />
+                </Grid.RowDefinitions>
+                <!--TITULO-->
+                <Grid Grid.Row="0" Margin="20,5,20,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Label Content="Informe de Movimiento Insumos General" FontSize="20" />
+                    </StackPanel>
+                </Grid>
+                <!--FILTRO-->
+                <materialDesign:ColorZone  Grid.Row="1" Margin="20,0,20,0" Mode="Standard"  CornerRadius="2"
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <!--<ColumnDefinition Width="0.4*"/>-->
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" VerticalAlignment="Stretch" Margin="10">
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.2*"/>
+                                    <RowDefinition Height="0.3*"/>
+                                    <RowDefinition Height="0.2*"/>
+                                    <RowDefinition Height="0.3*"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Content="Motivo / Movimiento" FontSize="15" HorizontalAlignment="Stretch"/>
+                                <ComboBox  Grid.Row="1" FontSize="15" materialDesign:HintAssist.Hint="TODOS" HorizontalAlignment="Stretch"
+                                           Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" Text="{Binding TextoTipoMovimientoSeleccionados}"
+                                           Foreground="{Binding ForegroundComboTipoMovimiento}" 
+                                           IsEditable="True" ItemsSource="{Binding DataTipoMovimientoInsumo}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding MOV_DESCR}" Background="#000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                  Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.MomivientoSelectedCommand}" 
+                                                  CommandParameter="{Binding ID}" IsChecked="{Binding ischeck}"
+                                                  Tag="{RelativeSource FindAncestor,  AncestorType={x:Type ComboBox}}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Label Grid.Row="2" Content="Periodo" FontSize="15"/>
+                                <Grid Grid.Row="3" HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="0.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <DatePicker Margin="5,0,5,0" Grid.Column="0" materialDesign:HintAssist.Hint="Desde" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                                        FontSize="15" HorizontalAlignment="Stretch" SelectedDate="{Binding StartDate}"/>
+
+                                    <DatePicker Margin="5,0,5,0" Grid.Column="1" materialDesign:HintAssist.Hint="Hasta" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                                        FontSize="15" HorizontalAlignment="Stretch" SelectedDate="{Binding FinishDate}"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Column="1" VerticalAlignment="Stretch" Margin="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.9*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" VerticalAlignment="Stretch">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.2*"/>
+                                        <RowDefinition Height="0.3*"/>
+                                        <RowDefinition Height="0.2*"/>
+                                        <RowDefinition Height="0.3*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Content="Almacen" FontSize="15"/>
+                                    <ComboBox  Grid.Row="1" Margin="10" Height="34" FontSize="15" Grid.Column="0" materialDesign:HintAssist.Hint="Almacen" HorizontalAlignment="Stretch"
+                                       Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" Text="{Binding TextoAlmacenSeleccionados}"
+                                       Foreground="{Binding ForegroundComboAlmacen}" 
+                                       IsEditable="True" ItemsSource="{Binding DataAlmacen}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Content="{Binding nomalm}" Background="#000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                              Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, 
+                                                    Path=DataContext.AlmacenSelectedCommand}" 
+                                                  CommandParameter="{Binding idalm}" IsChecked="{Binding ischeck}"
+                                                  Tag="{RelativeSource FindAncestor,  AncestorType={x:Type ComboBox}}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <Label Grid.Row="2" Content="Registros" FontSize="15"/>
+                                    <ComboBox Grid.Row="3" Margin="10" Height="34" FontSize="15" Grid.Column="0" materialDesign:HintAssist.Hint="Cantidad"
+                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"
+                                        SelectedItem="{Binding CantidadSelected}" IsSynchronizedWithCurrentItem="True"
+                                        IsEditable="True" ItemsSource="{Binding DataCantidadRegistros}" 
+                                        SelectedValue="{Binding idCantidadRegistros}" DisplayMemberPath="cantidadRegistros" SelectedValuePath="idCantidadRegistros"/>
+                                </Grid>
+                                <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}" Height="70" Width="70"
+                                    Command="{Binding BuscarGeneralCommand}" VerticalAlignment="Top" ToolTip="Buscar"
+                                    HorizontalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="Magnify" Width="50" Height="50" Foreground="#29b6f6" />
+                                </Button>
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+                </materialDesign:ColorZone>
+                
+                <!--GRILLA-->
+                <Grid Grid.Row="2" HorizontalAlignment="Stretch" Margin="20,10,20,0" VerticalAlignment="Stretch">
+                    <DataGrid Foreground="Black" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                          CanUserDeleteRows="True" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding DataMovimientoInsumoAlmacen, Mode=OneWay}" 
+                          Background="#fff" Grid.Row="0" MinHeight="300" MaxHeight="300" >
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn IsReadOnly="True" Header="Fecha" MaxWidth="120">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding MI_F_CREATE}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn IsReadOnly="True" Header="Motivo" MaxWidth="400" MinWidth="300">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding MOV_DESCR}" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding MI_DESCR}" Opacity=".70" TextWrapping="Wrap"/>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn IsReadOnly="True" Header="Insumo" MaxWidth="300" MinWidth="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding INS_NOM}" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn IsReadOnly="True" Header="Almacen" MaxWidth="300" MinWidth="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding ALM_NOM}" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn IsReadOnly="True" Header="Unidad de medida" MinWidth="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TM_DESC}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn IsReadOnly="True" Header="Entrada" MinWidth="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ENTRADA}" Foreground="{Binding EntradaForeColor}" FontWeight="Bold" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn IsReadOnly="True" Header="Salida" MinWidth="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Salida_texto}" Foreground="{Binding SalidaForeColor}" FontWeight="Bold" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn IsReadOnly="True" Header="Stock" MinWidth="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding STOCK}" FontWeight="Bold" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn IsReadOnly="True" Header="Costo Unitario" MaxWidth="150" MinWidth="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding INS_PRECIO}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+        <DockPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center">
+            <Button  Width="100" Height="30" Grid.Row="0" Grid.Column="1" Margin="0,4,10,5" VerticalAlignment="Top" 
+                     HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButtonSuccess}"
+                     Command="{Binding ExportaExcelCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="FileExcel" Margin="0,0,10,0"/>
+                    <TextBlock Text="Excel"/>
+                </StackPanel>
+            </Button>
+        </DockPanel>
+    </Grid>
+</UserControl>

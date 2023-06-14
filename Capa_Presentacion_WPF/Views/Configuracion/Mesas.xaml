@@ -1,0 +1,541 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Configuracion.Mesas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Configuracion"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="800">
+    <!--ESTILO DE SCROLL-->
+    <UserControl.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="ScrollBarRectangle" Property="Width" Value="300" />
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <!--ff8e1e-->
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="20" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="20" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <!--LISTA-->
+        <ContentControl Grid.Row="1" x:Name="ContentGrid">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="TableDesign">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"  Padding="10" MinWidth="400" Background="White" 
+                                 VerticalAlignment="Top" MaxWidth="800" MaxHeight="1000" UniformCornerRadius="15" Margin="0,80,0,0">
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.05*"/>
+                        <ColumnDefinition Width="0.9*"/>
+                        <ColumnDefinition Width="0.05*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="0.15*"/>
+                            <RowDefinition Height="0.75*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Orientation="Horizontal">
+                            <TextBlock Margin="20,10,0,0"  FontSize="30" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadlineTextBlock}">
+                        Mantenimiento de Mesas
+                            </TextBlock>
+                        </StackPanel>
+                        <materialDesign:Chip Grid.Column="2" HorizontalAlignment="Right" FontSize="20" Content="{Binding Operacion}" Background="#25A1FC" Foreground="White"/>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0">
+                            <Button  Width="130" Height="40" Grid.Row="0" Margin="10" HorizontalAlignment="Left" 
+                                Style="{StaticResource MaterialDesignFlatButtonPrimary}"
+                                Command="{Binding NuevoCommand}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Register" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Nuevo"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  Width="150" Height="40" Grid.Row="0" Margin="10" HorizontalAlignment="Left" 
+                                Style="{StaticResource MaterialDesignFlatButtonSuccess}" Command="{Binding DesignCommand}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Eye" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Vista Previa"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Right">
+                            <Label Content="Buscar" HorizontalAlignment="Left" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Grid.Row="2" FontSize="20" Background="White" Margin="5" Text="{Binding TextoBuscar, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" MaxWidth="500"
+                                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" HorizontalContentAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding BuscarxnombreCommand}"/>
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <Button Style="{DynamicResource MaterialDesignToolButton}" Command="{Binding BuscarxnombreCommand}" 
+                                        HorizontalAlignment="Stretch" ToolTip="Buscar">
+                                    <materialDesign:PackIcon Kind="Magnify" Opacity=".56" Width="25" Height="25" Foreground="#29b6f6" />
+                                </Button>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.2*"/>
+                                <RowDefinition Height="0.8*"/>
+                                <RowDefinition Height="70"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.05*"/>
+                                <ColumnDefinition Width="0.9*"/>
+                                <ColumnDefinition Width="0.05*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Background="#cacaca" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.15*"/>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.05*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label IsEnabled="{Binding EnabledBusqueda}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0">AMBIENTE</Label>
+                                <ComboBox IsEnabled="{Binding EnabledBusqueda}" Grid.Column="1" Margin="10" Height="34" FontSize="15" IsSynchronizedWithCurrentItem="True" materialDesign:HintAssist.Hint="AMBIENTES"
+                                  HorizontalAlignment="Center"
+                                  Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"
+                                  SelectedItem="{Binding AmbientesSelectedBuscar}"
+                                  IsEditable="False" ItemsSource="{Binding DataAmbientes}"                       
+                                  DisplayMemberPath="A_NOM" SelectedValuePath="ID"/>
+                                <Label IsEnabled="{Binding EnabledBusqueda}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2">ESTADO</Label>
+                                <ComboBox IsEnabled="{Binding EnabledBusqueda}" Grid.Column="3" Margin="10" Height="34" FontSize="15" IsSynchronizedWithCurrentItem="True" 
+                                  materialDesign:HintAssist.Hint="ESTADO MESA"
+                                  HorizontalAlignment="Center"
+                                  Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"
+                                  SelectedItem="{Binding MesaEstadoSelected}"
+                                  IsEditable="False" ItemsSource="{Binding DataEstado}"                       
+                                  DisplayMemberPath="ESTADO_MESA"/>
+                                <Button IsEnabled="{Binding EnabledBusqueda}" Grid.Column="4" VerticalAlignment="Center" Width="100" Height="40" Grid.Row="0" Margin="10,0,10,0" HorizontalAlignment="Center" 
+                                        Style="{StaticResource MaterialDesignFlatButtonPrimary}"
+                                        Command="{Binding BuscarCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Search" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Buscar"/>
+                                    </StackPanel>
+                                </Button>
+                                <CheckBox Grid.Column="5" IsChecked="{Binding IsCheckedBusqueda}"
+                                  Command="{Binding HabilitarBusquedaCommand}" Background="black" Foreground="Black"/>
+                            </Grid>
+                            <DockPanel Grid.Column="1" Grid.Row="1" Margin="20,0,0,0">
+                                <DataGrid Background="White" HorizontalAlignment="Center" Grid.Row="1" Margin="10" AutoGenerateColumns="False" 
+                                  IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" 
+                                  ItemsSource="{Binding DataMesas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="Acciones" >
+                                            <DataGridTemplateColumn.CellStyle>
+                                                <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                                    <Setter Property="Margin" Value="0"/>
+                                                    <Setter Property="Padding" Value="0"/>
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="BorderThickness" Value="0"/>
+                                                </Style>
+                                            </DataGridTemplateColumn.CellStyle>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button Style="{StaticResource MaterialDesignOutlinedButton}" Command="{Binding Path=DataContext.EditarCommand,
+                                                RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }" Foreground="#266EDC"
+                                                CommandParameter="{Binding ID}"
+                                                Content="{materialDesign:PackIcon Kind=FileDocumentEdit}" ToolTip="Editar" Padding="0" Height="25" Width="30" Margin="0,0,5,0" />
+                                                        <Button Style="{StaticResource MaterialDesignOutlinedButton}" Content="{materialDesign:PackIcon Kind=Delete}"
+                                                ToolTip="Eliminar" Padding="0" Height="25" Width="30" Foreground="#f44336"
+                                                Command="{Binding Path=DataContext.EliminarCommand,
+                                                RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }"
+                                                CommandParameter="{Binding ID}"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn Visibility="Hidden" Header="ID" Binding="{Binding ID}" FontSize="15"/>
+                                        <DataGridTextColumn Header="NOMBRE MESA" Binding="{Binding M_TEXTO}"  FontSize="15"/>
+                                        <DataGridTextColumn Header="AMBIENTE" Binding="{Binding A_NOM}"  FontSize="15"/>
+                                        <DataGridTemplateColumn Header="DISPONIBILIDAD" >
+                                            <DataGridTemplateColumn.CellStyle>
+                                                <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}" >
+                                                    <Setter Property="Margin" Value="0" />
+                                                    <Setter Property="Padding" Value="0"/>
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="BorderThickness" Value="0"/>
+                                                </Style>
+                                            </DataGridTemplateColumn.CellStyle>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal" >
+                                                        <CheckBox IsEnabled="False" Style="{StaticResource MaterialDesignCheckBox}"  
+                                                  IsChecked="{Binding M_ACT}" Padding="0" Height="25" Width="30" 
+                                                  Margin="0,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                <Button  Width="100" Height="30"  Margin="10,10,0,0" VerticalAlignment="Top" 
+                                 HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFlatButtonSuccess}"
+                                Command="{Binding ExportaExcelCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="FileExcel" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Excel"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button  Width="100" Height="30" Grid.Row="3" Grid.Column="2" Margin="10,10,0,5" VerticalAlignment="Top" 
+                                 HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFlatButtonDanger}"
+                                Command="{Binding ExportaPDFCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="PdfBox" Margin="0,0,10,0"/>
+                                        <TextBlock Text="PDF"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+
+                </Grid>
+            </materialDesign:Card>
+        </ContentControl>
+        
+        <!--NUEVO / EDITAR-->
+        <ScrollViewer Grid.Row="1" x:Name="ContentRegistro" VerticalAlignment="Center">
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="TableDesign">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ScrollViewer.Style>
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"  Padding="10" MinWidth="400" Background="White" 
+                                 VerticalAlignment="Top" MaxWidth="800" MaxHeight="1000" UniformCornerRadius="15" Margin="0,80,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.08*"/>
+                        <RowDefinition Height="0.92*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.05*"/>
+                        <ColumnDefinition Width="0.9*"/>
+                        <ColumnDefinition Width="0.05*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnGuardar" Width="130" Height="40" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" 
+                             Command="{Binding GuardarCommand}" Style="{StaticResource MaterialDesignFlatButtonSuccess}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0"/>
+                                <TextBlock Text="Guardar"/>
+                            </StackPanel>
+                        </Button>
+                        <Button  Width="130" Height="40" Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" HorizontalAlignment="Left" 
+                             Command="{Binding CancelarCommand}" Style="{StaticResource MaterialDesignFlatButtonDanger}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Cancel" Margin="0,0,10,0"/>
+                                <TextBlock Text="Cancelar"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="15" Width="auto" HorizontalAlignment="Center" >
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+                                <Label Margin="10" VerticalAlignment="Center" FontSize="15">Nombre Mesa:</Label>
+                                <Label Margin="10" VerticalAlignment="Center" FontSize="15">Ambiente:</Label>
+                                <Label Margin="10" VerticalAlignment="Center" FontSize="15">Tipo de Mesa:</Label>
+                                <Label Margin="10" VerticalAlignment="Center" FontSize="15">Estado:</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                                <TextBox Margin="10" FontSize="15" Text="{Binding NombreMesa}" VerticalAlignment="Center"
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="Ejm: 1" Height="34"/>
+                                <ComboBox Margin="10" Height="34" FontSize="15" materialDesign:HintAssist.Hint="Seleccione el Ambiente"
+                                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" SelectedValue="{Binding Mesas.M_ID_AMB}"
+                                                        SelectedItem="{Binding AmbientesSelected}" VerticalAlignment="Center"
+                                                        IsEditable="False" ItemsSource="{Binding DataAmbientes}" 
+                                                        DisplayMemberPath="A_NOM" SelectedValuePath="ID"/>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <ComboBox Margin="10" Height="34" FontSize="15" IsSynchronizedWithCurrentItem="True" materialDesign:HintAssist.Hint="TIPO DE MESA"
+                                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"
+                                                        SelectedItem="{Binding TipoMesaSelected}" VerticalAlignment="Center"
+                                                        IsEditable="False" ItemsSource="{Binding DataTipoMesa}" 
+                                                        DisplayMemberPath="TM_DESCR"/>
+                                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                        Visibility="{Binding VisibilityComboMesas}">MESA PADRE:</Label>
+                                    <ComboBox Margin="10" Visibility="{Binding VisibilityComboMesas}" Height="34" FontSize="15" 
+                                          IsSynchronizedWithCurrentItem="True" materialDesign:HintAssist.Hint="MESA PADRE"
+                                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"
+                                                        SelectedItem="{Binding MesaPadreSelected}"
+                                                        IsEditable="False" ItemsSource="{Binding DataMesasCombo}" 
+                                                        DisplayMemberPath="M_NOM" VerticalAlignment="Center"/>
+
+                                </StackPanel>
+                                <CheckBox Margin="10" Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding EstadoMesa}" VerticalAlignment="Center"
+                                      HorizontalAlignment="Left" FontSize="15" Background="#ff8e1e" Content="Disponible"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </ScrollViewer>
+        
+        <!--VISTA PREVIA-->
+        <DockPanel Grid.Row="1" x:Name="Content" VerticalAlignment="Center">
+            <DockPanel.Style>
+                <Style TargetType="DockPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="TableDesign">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Style>
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"  Padding="32" MinWidth="400" Background="White" 
+                                 VerticalAlignment="Top" MaxHeight="1000" UniformCornerRadius="15" Margin="30,0,30,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.08*"/>
+                        <RowDefinition Height="0.92*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="0.6*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--BOTONES-->
+                    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Width="130" Height="40" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" 
+                             Command="{Binding GuardarTamanioCommand}" Style="{StaticResource MaterialDesignFlatButtonSuccess}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0"/>
+                                <TextBlock Text="Guardar"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Width="130" Height="40" Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" HorizontalAlignment="Left" 
+                             Command="{Binding CancelarCommand}" Style="{StaticResource MaterialDesignFlatButtonDanger}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Cancel" Margin="0,0,10,0"/>
+                                <TextBlock Text="Cancelar"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    
+                    <!--DATOS-->
+                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="15" Width="auto" HorizontalAlignment="Center" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.4*"/>
+                            <RowDefinition Height="0.4*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" VerticalAlignment="Top" Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+                                <Label Margin="10" VerticalAlignment="Center" FontSize="15">Ambiente:</Label>
+                                <Label Margin="10" VerticalAlignment="Center" FontSize="15">Cant columnas:</Label>
+                                <Label Margin="10" VerticalAlignment="Center" FontSize="15">Alto de la mesa:</Label>
+                                <Label Margin="10" VerticalAlignment="Center" FontSize="15">Ancho de la mesa:</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                                <ComboBox Height="34" FontSize="15" materialDesign:HintAssist.Hint="Seleccione el Ambiente"
+                                                        Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" IsSynchronizedWithCurrentItem="True"
+                                                        SelectedItem="{Binding AmbientesSelected, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+                                                        IsEditable="False" ItemsSource="{Binding DataAmbientes}" 
+                                                        DisplayMemberPath="A_NOM" SelectedValuePath="ID"/>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBox Margin="10" FontSize="15" Text="{Binding nroColumnas, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+                                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  
+                                         materialDesign:HintAssist.Hint="Ejm: 5" Height="34"/>
+                                    <materialDesign:PackIcon Kind="ArrowCollapseUp" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBox Margin="10" FontSize="15" Text="{Binding Alto, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+                                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  
+                                         materialDesign:HintAssist.Hint="Ejm: 5" Height="34"/>
+                                    <materialDesign:PackIcon Kind="ArrowExpandVertical" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBox Margin="10" FontSize="15" Text="{Binding Ancho, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+                                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  
+                                         materialDesign:HintAssist.Hint="Ejm: 5" Height="34"/>
+                                    <materialDesign:PackIcon Kind="ArrowExpandHorizontal" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <materialDesign:Card Grid.Row="1" VerticalAlignment="Top" Background="#fff"
+                                         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Padding="0">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+                                    <Label Margin="10" VerticalAlignment="Center" FontSize="15">Margen Derecho:</Label>
+                                    <Label Margin="10" VerticalAlignment="Center" FontSize="15">Margen Izquierdo:</Label>
+                                    <Label Margin="10" VerticalAlignment="Center" FontSize="15">Margen Superior:</Label>
+                                    <Label Margin="10" VerticalAlignment="Center" FontSize="15">Margen Inferior:</Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBox Margin="10" FontSize="15" Text="{Binding Margin_Right, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+                                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  
+                                         materialDesign:HintAssist.Hint="Ejm: 5" Height="34"/>
+                                        <materialDesign:PackIcon Kind="ArrowExpandLeft" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBox Margin="10" FontSize="15" Text="{Binding Margin_Left, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+                                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  
+                                         materialDesign:HintAssist.Hint="Ejm: 5" Height="34"/>
+                                        <materialDesign:PackIcon Kind="ArrowExpandRight" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBox Margin="10" FontSize="15" Text="{Binding Margin_Top, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+                                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  
+                                         materialDesign:HintAssist.Hint="Ejm: 5" Height="34"/>
+                                        <materialDesign:PackIcon Kind="ArrowExpandUp" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBox Margin="10" FontSize="15" Text="{Binding Margin_Bottom, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+                                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  
+                                         materialDesign:HintAssist.Hint="Ejm: 5" Height="34"/>
+                                        <materialDesign:PackIcon Kind="ArrowExpandDown" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </Grid>
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="2" Grid.Row="1"
+                              VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <ItemsControl ItemsSource="{Binding DataMesasCombo}" Margin="{Binding Margin_string}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="{Binding nroColumnas}"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource MaterialDesignIconButton}"
+                                    Margin="{Binding M_X}" Width="{Binding Path=M_WIDTH}" Height="{Binding Path=M_HEIGHT}" 
+                                    Background="green" Foreground="#ffffff" BorderBrush="{Binding color}" Tag="{Binding id}">
+                                        <TextBlock FontSize="25" Text="{Binding M_TEXTO}"/>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </materialDesign:Card>
+        </DockPanel>
+    </Grid>
+</UserControl>

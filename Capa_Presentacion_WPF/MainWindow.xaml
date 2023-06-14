@@ -1,0 +1,405 @@
+﻿<Window xmlns:Configuracion="clr-namespace:Capa_Presentacion_WPF.Views.Configuracion"  x:Class="Capa_Presentacion_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Capa_Presentacion_WPF"
+        mc:Ignorable="d"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        Title="MainWindow" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="12"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        x:Name="MainSosFood"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStyle="ThreeDBorderWindow"
+        Loaded="Window_Loaded" 
+        WindowState="Maximized" Closing="MainSosFood_Closing">
+
+    <!--ESTILO DE SCROLL-->
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type System:DateTime}">
+            <StackPanel Margin="16">
+                <!--<TextBlock>England win the World Cup:</TextBlock>-->
+                <TextBlock Margin="0 8 0 0" Text="{Binding }" />
+                <!--<TextBlock Margin="0 8 0 0" >You will never see that again.</TextBlock>-->
+                <!--<Button  Margin="0 8 0 0" IsDefault="True" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Style="{DynamicResource MaterialDesignFlatButton}">AWESOME</Button>-->
+            </StackPanel>
+        </DataTemplate>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Menu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="245"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Menu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="245"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <!--<Setter TargetName="ScrollBarRectangle" Property="Width" Value="100" />-->
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="20" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <!--ff8e1e-->
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="20" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="20" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="gridBody" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="361*"/>
+                    <ColumnDefinition Width="104*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="30*"/>
+                </Grid.ColumnDefinitions>
+                <TreeView x:Name="Menu"  ItemsSource="{Binding Items}" Padding="0 10 0 0" Width="245" Visibility="{Binding TipoModulo}" HorizontalAlignment="Stretch" Grid.Row="0" 
+                          Grid.Column="0" VerticalAlignment="Stretch" Background="{x:Null}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}"
+                         BorderThickness="0 0 0.4 0" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource MaterialDesignTreeViewItem}">
+                            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate  ItemsSource="{Binding Children}" >
+                            <StackPanel Orientation="Horizontal"  >
+                                <materialDesign:PackIcon Kind="{Binding Icon, FallbackValue=ArrowDropUp}" Margin="0,0,8,0" Foreground="{Binding ColorIcon}"  />
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" FontSize="17" />
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+                <ContentControl Grid.Row="0" Grid.Column="1" Content="{Binding UserControl , UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="4" />
+            </Grid>
+            <DockPanel Grid.Row="0">
+                <materialDesign:ColorZone Padding="9" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" DockPanel.Dock="Top" Background="White">
+                    <DockPanel>
+                        <Image Source="{Binding LogoSosFood}" Width="150px" OpacityMask="#FF0A0A09" />
+                        <Label FontSize="10" Content="v. 2.1.3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,-5" Foreground="Gray" FontWeight="Bold"/>
+                        <ToggleButton Visibility="{Binding TipoModulo}" Style="{StaticResource MaterialDesignActionToggleButton}" IsChecked="True" FontSize="10"
+                                        x:Name="MenuToggleButton" Height="26" Width="26" Click="MenuToggleButton_Click" Background="Transparent" BorderBrush="Black" Foreground="Black" Checked="MenuToggleButton_Checked">
+                            <ToggleButton.Content>
+                                <materialDesign:PackIcon Kind="Menu" />
+                            </ToggleButton.Content>
+                            <materialDesign:ToggleButtonAssist.OnContent>
+                                <materialDesign:PackIcon Kind="MenuOpen" />
+                            </materialDesign:ToggleButtonAssist.OnContent>
+                        </ToggleButton>
+                        <materialDesign:PopupBox Visibility="{Binding TipoModulo}" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="20,0,0,0">
+                            <materialDesign:PopupBox.ToggleContent>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon  Margin="0,0,10,0" VerticalAlignment="Center" Kind="User" Height="17" Width="17" />
+                                    <TextBlock x:Name="txtuser" FontSize="16" Foreground="Black"  Text="{Binding NomUser}"  Tag="{Binding IDUser}"/>
+                                </StackPanel>
+                            </materialDesign:PopupBox.ToggleContent>
+                            <StackPanel>
+                                <Button x:Name="EditarUsuario" Command="{Binding EditPassCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="KeyChange"  Margin="0,0,10,0"/>
+                                        <TextBlock>Cambiar contraseña</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                                <Separator/>
+                                <Button x:Name="CloseMain"  Command="{Binding CloseSesionCommand}" CommandParameter="{Binding IDUser}" Click="CloseMain_Click_2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ExitToApp"  Margin="0,0,10,0"/>
+                                        <TextBlock>Salir</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                        <materialDesign:Badged Visibility="{Binding TipoModulo}" DockPanel.Dock="Right" Badge="{Binding Contador}" VerticalAlignment="Center" BadgeBackground="White" BadgeForeground="#FF37474F" Foreground="#FF37474F">
+                            <materialDesign:PopupBox Visibility="{Binding TipoModulo}" Foreground="#FF0A0A09">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Margin="0,0,0,0" VerticalAlignment="Center" Kind="Notifications" />
+                                    </StackPanel>
+                                </materialDesign:PopupBox.ToggleContent>
+                                <DockPanel LastChildFill="True" Grid.Row="0" Grid.Column="2">
+                                    <!--<materialDesign:ColorZone Mode="PrimaryMid">-->
+                                    <ItemsControl ItemsSource="{Binding DataMensaje}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Vertical"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.VerMensaje}" 
+                                            CommandParameter="{Binding id_unique_messages}"
+                                                        Margin="0,0,0,0" MaxWidth="250">
+                                                    <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <materialDesign:PackIcon Kind="MessageTextOutline"  Margin="0,0,10,0"/>
+                                                            <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="16.5" FontWeight="Bold"  TextWrapping="Wrap" Margin="0,0,0,0" Text="{Binding title_messages}"></TextBlock>
+                                                        </StackPanel>
+                                                        <TextBlock TextWrapping="Wrap" Text="{Binding text_messages_abrev}"></TextBlock>
+                                                        <Separator/>
+                                                    </StackPanel>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <!--</materialDesign:ColorZone>-->
+                                </DockPanel>
+                            </materialDesign:PopupBox>
+                        </materialDesign:Badged>
+                        <materialDesign:Badged Visibility="{Binding TipoModulo}" DockPanel.Dock="Right" Badge="{Binding ContadorDelivery, NotifyOnTargetUpdated=True}" Margin="0,0,20,0"  VerticalAlignment="Center" BadgeBackground="{Binding ColorDelivery}" BadgeForeground="{Binding ColorLetraDelivery}" Foreground="{Binding ColorLetraDelivery}">
+                            <materialDesign:PopupBox Visibility="{Binding TipoModulo}" Foreground="#FF0A0A09">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Width="50" BorderBrush="White" Background="White" Command="{Binding DeliveryComand}">
+                                            <materialDesign:PackIcon Margin="0,0,0,0" VerticalAlignment="Center" Kind="TruckDelivery" />
+                                        </Button>
+                                    </StackPanel>
+                                </materialDesign:PopupBox.ToggleContent>
+
+                            </materialDesign:PopupBox>
+                        </materialDesign:Badged>
+                        <materialDesign:Badged Visibility="{Binding TipoModulo}" DockPanel.Dock="Right" Badge="{Binding ContadorRecojo, NotifyOnTargetUpdated=True}" Margin="0,0,5,0"  VerticalAlignment="Center" BadgeBackground="{Binding ColorRecojo}" BadgeForeground="{Binding ColorLetraRecojo}" Foreground="{Binding ColorLetraRecojo}">
+                            <materialDesign:PopupBox Visibility="{Binding TipoModulo}" Foreground="#FF0A0A09">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Width="50" BorderBrush="White" Background="White" Command="{Binding RecojoComand}">
+                                            <materialDesign:PackIcon Margin="0,0,0,0" VerticalAlignment="Center" Kind="HouseMapMarker" />
+                                        </Button>
+                                    </StackPanel>
+                                </materialDesign:PopupBox.ToggleContent>
+
+                            </materialDesign:PopupBox>
+                        </materialDesign:Badged>
+                        <materialDesign:Badged Visibility="{Binding TipoModuloPedido}" DockPanel.Dock="Right" Margin="0,0,5,0" VerticalAlignment="Center" 
+                                               BadgeBackground="White" BadgeForeground="#FF37474F" Foreground="#FF37474F">
+                            <materialDesign:PopupBox Visibility="{Binding TipoModuloPedido}" Foreground="#FF0A0A09">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="CloseMain2"  Command="{Binding CloseSesionCommand}" 
+                                                CommandParameter="{Binding IDUser}" Click="CloseMain_Click_1" >
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="ExitToApp" Margin="0,0,10,0"/>
+                                                <TextBlock>Salir</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </materialDesign:PopupBox.ToggleContent>
+                            </materialDesign:PopupBox>
+                        </materialDesign:Badged>
+                        <materialDesign:Badged Name="BadgedMesa" Visibility="{Binding TipoModuloMesa}" DockPanel.Dock="Right" Badge="{Binding ContadorMesa, NotifyOnTargetUpdated=True}" Margin="0,0,5,0"  VerticalAlignment="Center" BadgeBackground="{Binding ColorMesa}" BadgeForeground="{Binding ColorLetraMesa}" Foreground="{Binding ColorLetraMesa}">
+                            <materialDesign:PopupBox Visibility="{Binding TipoModuloMesa}" Foreground="#FF0A0A09">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Width="50" BorderBrush="White" Background="White" Command="{Binding MesaComand}">
+                                            <materialDesign:PackIcon Margin="0,0,0,0" VerticalAlignment="Center" Kind="ChairSchool" />
+                                        </Button>
+                                    </StackPanel>
+                                </materialDesign:PopupBox.ToggleContent>
+
+                            </materialDesign:PopupBox>
+                        </materialDesign:Badged>
+                        <materialDesign:PopupBox Visibility="{Binding TipoModuloMesa}" DockPanel.Dock="Right" Margin="0,0,5,0" Foreground="#FF0A0A09">
+                            <materialDesign:PopupBox.ToggleContent>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Width="50" BorderBrush="White" Background="White" Command="{Binding PedidoComand}">
+                                        <materialDesign:PackIcon Margin="0,0,0,0" VerticalAlignment="Center" Kind="ArrowBackCircle" />
+                                    </Button>
+                                </StackPanel>
+                            </materialDesign:PopupBox.ToggleContent>
+                        </materialDesign:PopupBox>
+                        <materialDesign:PopupBox Visibility="{Binding TipoModulo}" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,-2,5,0">
+                            <materialDesign:PopupBox.ToggleContent>
+                                <Button Height="30" Width="50" Background="White" ToolTip="Desbloquear Mesas" Command="{Binding DesbloquearMesas}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="LockOpenOutline" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Height="17" Width="17"/>
+                                    </StackPanel>
+                                </Button>
+                            </materialDesign:PopupBox.ToggleContent>
+                        </materialDesign:PopupBox>
+                        <materialDesign:PopupBox Visibility="{Binding TipoModulo}" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,-2,5,0">
+                            <materialDesign:PopupBox.ToggleContent>
+                                <Button Height="30" Width="50" Background="White" ToolTip="Abrir gaveta de dinero" Command="{Binding AbrirGavetaCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ChevronDownBoxOutline" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Height="17" Width="17"/>
+                                    </StackPanel>
+                                </Button>
+                            </materialDesign:PopupBox.ToggleContent>
+                        </materialDesign:PopupBox>
+                        <!--MAR Y TIERRA-->
+                        <!--<materialDesign:PopupBox Visibility="{Binding TipoModulo}" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,-2,5,0">
+                            <materialDesign:PopupBox.ToggleContent>
+                                <Button Height="30" Width="50" Background="White" ToolTip="Abrir gaveta de dinero" Command="{Binding AbrirGavetaCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ChevronDownBoxOutline" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Height="17" Width="17"/>
+                                    </StackPanel>
+                                </Button>
+                            </materialDesign:PopupBox.ToggleContent>
+                        </materialDesign:PopupBox>-->
+                        <!--<materialDesign:PopupBox Visibility="{Binding TipoModulo}" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="20,-2,0,0">
+                            <materialDesign:PopupBox.ToggleContent>
+                                <Button Height="30" Width="50" Background="White" ToolTip="Generar QR" Command="{Binding GenerarQR}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Qrcode" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Height="17" Width="17"/>
+                                    </StackPanel>
+                                </Button>
+                            </materialDesign:PopupBox.ToggleContent>
+                        </materialDesign:PopupBox>-->
+                        <materialDesign:PopupBox DockPanel.Dock="Right" HorizontalAlignment="Right" 
+                                                 Margin="20,-2,0,0">
+                            <materialDesign:PopupBox.Style>
+                                <Style TargetType="materialDesign:PopupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Modulo}" Value="1">
+                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Modulo}" Value="2">
+                                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Modulo}" Value="3">
+                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PopupBox.Style>
+                            <materialDesign:PopupBox.ToggleContent>
+                                <Button Height="35" Width="200" Background="White" ToolTip="Entregados"
+                                        Command="{Binding VerPedidosEntregadosCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Eye" HorizontalAlignment="Right" 
+                                                                 Margin="0,0,20,0" VerticalAlignment="Center" Height="17" Width="17"/>
+                                        <Label Content="Entregados" FontSize="14"/>
+                                    </StackPanel>
+                                </Button>
+                            </materialDesign:PopupBox.ToggleContent>
+                        </materialDesign:PopupBox>
+                        <materialDesign:PopupBox DockPanel.Dock="Right" HorizontalAlignment="Right" 
+                                                 Margin="20,-2,0,0">
+                            <materialDesign:PopupBox.Style>
+                                <Style TargetType="materialDesign:PopupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Modulo}" Value="1">
+                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Modulo}" Value="2">
+                                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Modulo}" Value="3">
+                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PopupBox.Style>
+                            <materialDesign:PopupBox.ToggleContent>
+                                <Button Height="35" Width="200" Background="White" ToolTip="Pendientes"
+                                        Command="{Binding VerPedidosPendientesCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Eye" HorizontalAlignment="Right" 
+                                                                 Margin="0,0,20,0" VerticalAlignment="Center" Height="17" Width="17"/>
+                                        <Label Content="Pendientes" FontSize="14"/>
+                                    </StackPanel>
+                                </Button>
+                            </materialDesign:PopupBox.ToggleContent>
+                        </materialDesign:PopupBox>
+                        <materialDesign:PopupBox DockPanel.Dock="Right" HorizontalAlignment="Right" 
+                                                 Margin="20,-2,0,0">
+                            <materialDesign:PopupBox.Style>
+                                <Style TargetType="materialDesign:PopupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Modulo}" Value="1">
+                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Modulo}" Value="2">
+                                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Modulo}" Value="3">
+                                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PopupBox.Style>
+                            <materialDesign:PopupBox.ToggleContent>
+                                <Label Content="{Binding NombreImpresora}" FontSize="15" FontWeight="Bold" Foreground="#f57c00"/>
+                            </materialDesign:PopupBox.ToggleContent>
+                        </materialDesign:PopupBox>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+            </DockPanel>
+        </Grid>
+    </materialDesign:DialogHost>
+</Window>

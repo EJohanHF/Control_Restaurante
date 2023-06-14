@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Dialogs.DialogEditPass"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Dialogs"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" MaxWidth="500">
+    <Grid Margin="15,6,17,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="68*" />
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="59*"/>
+            <RowDefinition Height="54*"/>
+            <RowDefinition Height="77*" />
+        </Grid.RowDefinitions>
+        <materialDesign:Card
+                          Background="{DynamicResource PrimaryHueLightBrush}"
+                          Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
+                          Padding="8" Margin="40,10,28,0" Height="58">
+
+            <TextBlock FontSize="16" TextAlignment="Center" Text="{Binding UsuarioName}" Margin="0,10,0,14"/>
+
+        </materialDesign:Card>
+        <materialDesign:PackIcon Kind="KeyRemove" Margin="13,15,0,0" Grid.Row="2" />
+        <TextBox x:Name="txtpassold" Grid.Row="2"  Margin="35,8,10,18" FontSize="15" Focusable="True"  Text="{Binding Usuario.claveusu}" 
+                             Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="Contraseña Anterior"  />
+        <materialDesign:PackIcon Kind="KeyAdd"   Margin="14,15,0,0" Grid.Row="3" />
+
+        <TextBox x:Name="txtpassnew" Grid.Row="3"  Margin="35,11,10,10" FontSize="15"  Text="{Binding Usuario.claveusu_cambio}" 
+                             Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="Contraseña nueva"  />
+        <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Right" FontSize="15" Margin="0,49,10,60" Foreground="Red" TextAlignment="Center" Width="223" Height="22" Grid.Row="3" Text="{Binding Mensajeuser, UpdateSourceTrigger=PropertyChanged }" Grid.RowSpan="2" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="4" x:Name="Botones" Margin="40,21,21,10" Width="207" >
+            <Button x:Name="btnAceptar" Style="{StaticResource MaterialDesignFlatButtonSuccess}" Command="{Binding EditPassCommand}" IsDefault="False" Margin="0,2,8,-1" Content="ACEPTAR">
+            </Button>
+
+
+            <Button Style="{StaticResource MaterialDesignFlatButtonDanger}" IsDefault="True" Margin="0,10,8,8" 
+                                Command="{Binding CerrarDialog}" Content="CANCELAR" Width="107">
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B2D1C2BC-D99B-4C96-87BE-D6111B979603}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Capa_Datos</RootNamespace>
+    <AssemblyName>Capa_Datos</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.4141.31969, Culture=neutral, PublicKeyToken=f3bc8f8c31beeb49, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net.0.1.0\lib\net35\BCrypt.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="DevOne.Security.Cryptography.BCrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.EventLog, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.EventLog.4.7.0\lib\net461\System.Diagnostics.EventLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.ServiceProcess.ServiceController, Version=4.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ServiceProcess.ServiceController.4.7.0\lib\net461\System.ServiceProcess.ServiceController.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.4778.30637, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Acceso\Dat_Usuario.cs" />
+    <Compile Include="Centro Costos\DatCentroCostos.cs" />
+    <Compile Include="Centro Costos\DatCostosVariables.cs" />
+    <Compile Include="Cuentas\Dat_Cuentas.cs" />
+    <Compile Include="Data\Ambientes\Dat_Ambiente.cs" />
+    <Compile Include="Data\Ambientes\Dat_Mesa.cs" />
+    <Compile Include="Data\Carta\Dat_Categoria.cs" />
+    <Compile Include="Data\Carta\Dat_Descripciones.cs" />
+    <Compile Include="Data\Carta\Dat_DetDescripciones.cs" />
+    <Compile Include="Data\Carta\Dat_Grupo.cs" />
+    <Compile Include="Data\Carta\Dat_Impresora.cs" />
+    <Compile Include="Data\Carta\Dat_Plato.cs" />
+    <Compile Include="Data\Carta\Dat_SuperCategoria.cs" />
+    <Compile Include="Data\Configuracion\Dat_Caja.cs" />
+    <Compile Include="Data\Configuracion\Dat_Cliente.cs" />
+    <Compile Include="Data\Configuracion\Dat_Corporacion.cs" />
+    <Compile Include="Data\Configuracion\Dat_Descuento.cs" />
+    <Compile Include="Data\Configuracion\Dat_Empleados.cs" />
+    <Compile Include="Data\Configuracion\Dat_Empresa.cs" />
+    <Compile Include="Data\Configuracion\Dat_Proveedor.cs" />
+    <Compile Include="Data\Configuracion\Dat_RolCargo.cs" />
+    <Compile Include="Data\Configuracion\Dat_Roles.cs" />
+    <Compile Include="Core\Dato_Base.cs" />
+    <Compile Include="Core\Dat_Util.cs" />
+    <Compile Include="Data\Configuracion\Dat_SuperJesus.cs" />
+    <Compile Include="Data\Configuracion\Dat_TipoCaja.cs" />
+    <Compile Include="Data\Configuracion\Dat_TipoCambio.cs" />
+    <Compile Include="Data\Configuracion\Dat_TipoDoc.cs" />
+    <Compile Include="Data\Reportes\Pedidos\Dat_DpAdelantoxEmpleado.cs" />
+    <Compile Include="Data\Reportes\Pedidos\Dat_DpAnulados.cs" />
+    <Compile Include="Data\Reportes\Pedidos\Dat_DpCajaChica.cs" />
+    <Compile Include="Data\Reportes\Pedidos\Dat_DpDescuento.cs" />
+    <Compile Include="Data\Reportes\Pedidos\Dat_DpVentaMozo.cs" />
+    <Compile Include="Data\Reportes\Pedidos\Dat_DpVentas.cs" />
+    <Compile Include="Data\Reportes\Pedidos\Dat_DpVentasPlatosxImpresora.cs" />
+    <Compile Include="Data\Reportes\Pedidos\Dat_VentasxCanal.cs" />
+    <Compile Include="Data\Reportes\Rpt_BoletayFactura\Dat_BoletayFactura.cs" />
+    <Compile Include="Data\Reportes\VentasPorDia\Dat_BoletaFactura.cs" />
+    <Compile Include="Data\Reportes\VentasPorDia\Dat_CierreParcial.cs" />
+    <Compile Include="Data\Reportes\VentasPorDia\Dat_CierresDias.cs" />
+    <Compile Include="Data\Reportes\VentasPorDia\Dat_Detalle_Pedido.cs" />
+    <Compile Include="Data\Reportes\VentasPorDia\Dat_Pagar.cs" />
+    <Compile Include="Data\Reportes\VentasPorDia\Dat_VentasDia.cs" />
+    <Compile Include="Data\Stock\Dat_InsumoAlmacen.cs" />
+    <Compile Include="Data\Stock\Dat_Merma.cs" />
+    <Compile Include="Data\Stock\Reporte\Dat_Report_InsumoAlmacen.cs" />
+    <Compile Include="Delivery Web Service\Dat_DeliveryWebService.cs" />
+    <Compile Include="Despacho\Dat_Despacho.cs" />
+    <Compile Include="Factura Compra\DatFactCompra.cs" />
+    <Compile Include="Facturacion Electronica\Dat_Data_Documento_Electronico.cs" />
+    <Compile Include="Facturacion Electronica\Dat_Doc_Electronico.cs" />
+    <Compile Include="Facturacion Electronica\Dat_Tipo_Doc_Electronico.cs" />
+    <Compile Include="Funciones Globales\Func_Globales.cs" />
+    <Compile Include="MEnsaje.cs" />
+    <Compile Include="Nivel\Dat_Nivel.cs" />
+    <Compile Include="Parametros\Dat_Parametros.cs" />
+    <Compile Include="Parametros\Dat_Parametros_Pedidos.cs" />
+    <Compile Include="Pedido\Dat_Estado_Financiero.cs" />
+    <Compile Include="Pedido\Dat_Pedido.cs" />
+    <Compile Include="Principal\Dat_Principal.cs" />
+    <Compile Include="Receta\Dat_Receta.cs" />
+    <Compile Include="Reservas\Dat_Reservas.cs" />
+    <Compile Include="Sostic\Dat_Sostic.cs" />
+    <Compile Include="Data\Trasacciones\Dat_Transacciones.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Stock\Dat_Almacen.cs" />
+    <Compile Include="Data\Stock\Dat_Insumos.cs" />
+    <Compile Include="Data\Stock\Dat_UnidadMedida.cs" />
+    <Compile Include="Data\User\Dat_Usuarios.cs" />
+    <Compile Include="WebService\Dat_CartaDeliveryWebService.cs" />
+    <Compile Include="WebService\Dat_ConsultaMensaje.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BD\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Capa_Entidades\Capa_Entidades.csproj">
+      <Project>{5c54cff1-d8cb-49b8-90c7-a940583aa129}</Project>
+      <Name>Capa_Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Notifications.Wpf\Notifications.Wpf.csproj">
+      <Project>{5C9A4F46-263D-4C23-B361-F09E14BB109E}</Project>
+      <Name>Notifications.Wpf</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

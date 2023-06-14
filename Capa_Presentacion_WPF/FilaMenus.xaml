@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.FilaMenus"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF"
+             mc:Ignorable="d" Width="1219" Height="41.467" Loaded="ListMenu_Loaded">
+    <Grid  Margin="0,0,0,405.6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300*"/>
+            <ColumnDefinition Width="719*"/>
+        </Grid.ColumnDefinitions>
+        <Menu IsMainMenu="True" x:Name="ListMenu" Margin="1,0,0.2,-40"  Grid.ColumnSpan="2" >
+        </Menu>
+    </Grid>
+</UserControl>

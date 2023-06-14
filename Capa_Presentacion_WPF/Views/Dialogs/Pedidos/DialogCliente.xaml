@@ -1,0 +1,258 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Dialogs.Pedidos.DialogCliente"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Dialogs.Pedidos"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:userControls="clr-namespace:Capa_Presentacion_WPF.Views.Dialogs"
+             Width="750" Height="550">
+    <ScrollViewer>
+        <Grid>
+            <StackPanel Orientation="Vertical"  Visibility="{Binding Lista}">
+                <Label HorizontalAlignment="Center" FontSize="22" Content="Seleccionar Cliente"></Label>
+                <StackPanel Orientation="Horizontal">
+                    <Label HorizontalAlignment="Center" FontSize="17" VerticalAlignment="Center" Content="Cliente : "></Label>
+                    <!--<TextBox Text="{Binding Criterio}" Background="White" Width="430" BorderThickness="1" BorderBrush="Black" Margin="5"></TextBox>-->
+                    <Border BorderBrush="Black" Background="White" Margin="5,0,5,0"
+                        BorderThickness="1" Height="35" Width="auto" Grid.Row="0" Grid.Column="1"
+                        VerticalAlignment="Center" CornerRadius="5">
+
+                        <StackPanel Margin="5" Orientation="Horizontal" Width="auto" HorizontalAlignment="Stretch">
+                            <TextBox Background="White" FontSize="15" Width="450" Height="30" Focusable="True"
+                                     Text="{Binding Criterio,  UpdateSourceTrigger=PropertyChanged}" 
+                                     Style="{StaticResource MaterialDesignTextBox}"  
+                                     materialDesign:HintAssist.Hint=" Ingrese los datos del cliente" 
+                                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                     Margin="3 0 0 0">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="{Binding Path=BuscarCliente}" CommandParameter="{Binding Criterio}" Key="Enter" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                        </StackPanel>
+                    </Border>
+                    <Button Content="BUSCAR" Margin="0" Command="{Binding BuscarCliente}" Style="{StaticResource MaterialDesignFlatButtonInfo}" 
+                            VerticalAlignment="Center" CommandParameter="{Binding Criterio}" />
+                </StackPanel>
+                <ScrollViewer Width="auto" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Height="320">
+                    <!--<DataGrid SelectedItem="{Binding SelectedDataFile}" HorizontalAlignment="Center" Grid.Row="1" AutoGenerateColumns="False" 
+                              IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding ViewList.View}">-->
+                    <ListView SelectedItem="{Binding SelectedDataFile}" HorizontalAlignment="Center" Grid.Row="1" ItemsSource="{Binding ViewList.View}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction  
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.RowDoubleClickCommand}">
+                                </i:InvokeCommandAction>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseUp">
+                                <i:InvokeCommandAction  
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.RowClickCommand}">
+                                </i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <!--<ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="ToolTip" Value="{Binding dircli}" />
+                            </Style>
+                        </ListView.ItemContainerStyle>-->
+                        <!--<Style TargetType="{x:Type ListViewItem}">
+
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content }"></Setter>
+
+                        </Style>-->
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding idcli}" />
+                                <GridViewColumn Header="Nominación" Width="180">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock ToolTip="{Binding denominacion}" Text="{Binding denominacion}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Nro Doc." Width="95">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock ToolTip="{Binding ndoc}" Text="{Binding ndoc}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Direccion" Width="260">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock ToolTip="{Binding dircli}" Text="{Binding dircli}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Teléfono" Width="80" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock ToolTip="{Binding telcli}" Text="{Binding telcli}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--<GridViewColumn Header="Correo" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock ToolTip="{Binding corcli}" Text="{Binding corcli}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>-->
+                            </GridView>
+                        </ListView.View>
+                        <!--<DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding idcli}" FontSize="12" FontWeight="Bold"/>
+                            <DataGridTextColumn Header="Nominación" Binding="{Binding denominacion}"  FontSize="12" FontWeight="Bold"/>
+                            <DataGridTextColumn Header="Nro Documento" Binding="{Binding ndoc}"  FontSize="12" FontWeight="Bold"/>
+                            <DataGridTextColumn Header="Direccion" Binding="{Binding dircli}"  FontSize="12" FontWeight="Bold" MaxWidth="250">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="ToolTip" Value="{Binding dircli}" />
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Teléfono" Binding="{Binding telcli}"  FontSize="12" FontWeight="Bold"/>
+                            <DataGridTextColumn Header="Correo" Binding="{Binding corcli}"  FontSize="12" FontWeight="Bold"/>
+                            --><!--<DataGridTemplateColumn Header="Estado" >
+                                <DataGridTemplateColumn.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}" >
+                                        <Setter Property="Margin" Value="0" />
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <CheckBox IsEnabled="False" Style="{StaticResource MaterialDesignCheckBox}"  IsChecked="{Binding estadocli}" Padding="0" Height="25" Width="30" Margin="0,0,5,0" Foreground="#F74D24" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>--><!--
+                        </DataGrid.Columns>-->
+                    </ListView>
+                </ScrollViewer>
+                <userControls:PaginationElements HorizontalAlignment="Center" Margin="5" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="130" Height="40" Margin="10,10,10,10" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFlatButtonPrimary}"
+                   Command="{Binding NuevoCommand}" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Register" Margin="0,0,10,0"/>
+                            <TextBlock Text="Nuevo"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Width="300" Margin="10,0,10,0" HorizontalAlignment="Left" 
+                             Command="{Binding Aceptar}" Style="{StaticResource MaterialDesignFlatButtonSuccess}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0"/>
+                            <TextBlock Text="SELECCIONAR"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="300" Margin="10,0,10,0"  HorizontalAlignment="Right" 
+                             Command="{Binding CerrarDialog}" Style="{StaticResource MaterialDesignFlatButtonDanger}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Cancel" Margin="0,0,10,0"/>
+                            <TextBlock Text="CANCELAR"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Orientation="Vertical"  Visibility="{Binding Grabar}" VerticalAlignment="Stretch">
+                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="10" Background="White" 
+                                 VerticalAlignment="Center" UniformCornerRadius="15" Margin="25,25,0,0">
+                    <Label Content="{Binding TituloCliente}" HorizontalAlignment="Center" FontSize="22" Foreground="Orange"/>
+                </materialDesign:Card>
+                <Grid Grid.Row="1" Margin="15" Width="auto" HorizontalAlignment="Center" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="400"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="115" />
+                            <ColumnDefinition Width="235" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Margin="0,11,0,16" FontSize="13">Documento:</Label>
+                        <Label VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Margin="0,11,0,16" FontSize="13">Nombre:</Label>
+                        <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="0,11,0,16" FontSize="13">Distrito:</Label>
+                        <Label VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Margin="0,11,0,16" FontSize="13">Referencia:</Label>
+
+                        <ComboBox x:Name="cboTipoDoc" Grid.Row="0" Grid.Column="1" Margin="10,0,10,0"  Height="34" FontSize="15" 
+                                  materialDesign:HintAssist.Hint="Seleccione Tipo Doc"  Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" 
+                                  ItemsSource="{Binding ComboTipoDoc}" SelectedValue="{Binding Cliente.idtd}" SelectedItem="{Binding ComboTipoDocSelected}"
+                                  DisplayMemberPath="nombre" SelectedValuePath="id" SelectionChanged="cboTipoDoc_SelectionChanged" />
+                        <TextBox x:Name="txtnomcli" Grid.Row="1" Grid.Column="1" Margin="11,8,8,9"  FontSize="15" Text="{Binding Cliente.denominacion, UpdateSourceTrigger=PropertyChanged}" 
+                                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="Jhonas Birreo" Height="34"/>
+                        <TextBox x:Name="txtdistr" Grid.Row="2" Grid.Column="1" Margin="11,9,8,8" FontSize="15" Text="{Binding Cliente.distritocli, UpdateSourceTrigger=PropertyChanged}"
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="LIMA" Height="34"  />
+
+                        <TextBox x:Name="txtref" Grid.Row="3" Grid.Column="1" Margin="11,9,8,8" FontSize="15" Text="{Binding Cliente.referenciacli,UpdateSourceTrigger=PropertyChanged}"
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="Al lado del mercado" Height="34"  />
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="115"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Margin="0,10,9,15"  FontSize="13">Nro Documento:</Label>
+                        <Label VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Margin="0,11,9,16"  FontSize="13">Teléfono:</Label>
+                        <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="0,11,9,16"  FontSize="13">Calle/Jr/Urb:</Label>
+                        <Label VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Margin="0,11,9,16"  FontSize="13">Correo:</Label>
+
+                        <TextBox x:Name="txtndoc"  Grid.Row="0" Grid.Column="1" Margin="11,8,8,9" FontSize="15" Text="{Binding Cliente.ndoc, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="12346786" Height="34" TextChanged="txtndoc_TextChanged" />
+                        <Button x:Name="btnComprobarDoc" Grid.Row="0" Grid.Column="2" IsEnabled="{Binding EnabledBuscarDoc}" 
+                                HorizontalAlignment="Left" Margin="5" Command="{Binding SunatCommand}" CommandParameter="{Binding Path=Text, 
+                            ElementName=txtndoc}" Style="{StaticResource MaterialDesignFlatButtonInfo}" ToolTip="Buscar">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Magnify" Width="20" Height="20" 
+                                                 Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBox x:Name="txttel" Grid.Row="1" Grid.Column="1" Margin="11,9,8,8" FontSize="15" Text="{Binding Cliente.telcli}" Grid.ColumnSpan="2"
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="956856821" Height="34"/>
+                        <TextBox x:Name="txtcalle" Grid.Row="2" Grid.Column="1" Margin="11,9,8,8" FontSize="15" Text="{Binding Cliente.callecli, UpdateSourceTrigger=PropertyChanged}"
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="Av. Pacasmayo" Height="34" Grid.ColumnSpan="2"  />
+                        <TextBox x:Name="txtcorreo" Grid.Row="3" Grid.Column="1" Margin="11,9,8,8" FontSize="15" Text="{Binding Cliente.corcli}"
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="ejemplo@gmail.com" Height="34" Grid.ColumnSpan="2" MaxLength="9" />
+                    </Grid>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="btnGuardar" Width="130" Height="40" Margin="10,0,0,0" HorizontalAlignment="Left" 
+                             Command="{Binding GuardarCommand}" Style="{StaticResource MaterialDesignFlatButtonSuccess}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding NombreBoton}"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Width="130" Height="40" Margin="10,0,0,0" HorizontalAlignment="Left" 
+                             Command="{Binding CancelarCommand}" Style="{StaticResource MaterialDesignFlatButtonDanger}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Cancel" Margin="0,0,10,0"/>
+                            <TextBlock Text="Cancelar"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

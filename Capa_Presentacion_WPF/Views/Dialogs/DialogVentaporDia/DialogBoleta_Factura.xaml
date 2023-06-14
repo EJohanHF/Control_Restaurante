@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Dialogs.DialogVentaporDia.DialogBoleta_Factura"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Dialogs"
+             mc:Ignorable="d" 
+             d:DesignHeight="215" d:DesignWidth="250" MaxWidth="500">
+    <Border BorderBrush="#EFEFEF" Padding="0" Margin="0" BorderThickness="1" CornerRadius="15" Background="White">
+    <Grid Margin="15,16,17,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15" />
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+            <Rectangle Fill="#F4A30C" />
+            <TextBlock  Grid.Row="0" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Bold>EMITIR DOCUMENTO</Bold>
+            </TextBlock>
+            <Grid Width="124" Grid.Row="1">
+                <Button Style="{StaticResource MaterialDesignFlatButtonDanger}" Background="#27C877" ToolTip="Haga click para ingresar" Command="{Binding BoletaFacturaCommand}">
+                    <TextBlock Text="BOLETA" />
+                </Button>
+                
+        </Grid>
+            <Separator Name="MySeparator" Height="4" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#F4A30C" Grid.Row="1"/>
+            <Grid Width="124" Grid.Row="2">
+                <Button Style="{StaticResource MaterialDesignFlatButtonDanger}" Background="#0D79AB"
+                Height="35" Command="{Binding FacturaCommand}" ToolTip="Haga click para ingresar">
+                            <TextBlock  Text="FACTURA" />
+            </Button>
+                
+         </Grid>
+            <Separator Height="4" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#F4A30C" Grid.Row="2"/>
+
+            <TextBlock x:Name="Mensaje" Margin="0,1,6,78" FontSize="17" Grid.Row="1" TextWrapping="WrapWithOverflow"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" x:Name="Botones" Margin="0,0" Width="AUTO" >
+            <Button Style="{StaticResource MaterialDesignFlatButtonDanger}" IsDefault="True" Margin="0,0,0,0" 
+                    Command="materialDesign:DialogHost.CloseDialogCommand" Content="CANCELAR">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+        </StackPanel>
+    </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,404 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Receta.SubReceta"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Receta"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="800">
+    <!--ESTILO DE SCROLL-->
+    <UserControl.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <!--<Setter TargetName="ScrollBarRectangle" Property="Width" Value="100" />-->
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="20" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <!--ff8e1e-->
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="20" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="20" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="5" MinWidth="700" 
+                                     Background="White" VerticalAlignment="Center" HorizontalAlignment="Center" MinHeight="500" UniformCornerRadius="15" >
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.9*"/>
+            </Grid.RowDefinitions>
+            <ContentControl Grid.Row="0" Grid.Column="0" Background="gray">
+                <DockPanel Margin="1">
+                    <TextBlock Margin="20,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       Style="{StaticResource MaterialDesignHeadlineTextBlock}" Text="Sub Receta"/>
+                    <materialDesign:Chip HorizontalAlignment="Right" FontSize="20" Cursor="Arrow" Content="{Binding Operacion}" Background="#25A1FC" Foreground="White"/>
+                </DockPanel>
+            </ContentControl>
+            <ContentControl Grid.Row="1" Margin="20">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                                <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="0.6*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Width="110" Height="30" Grid.Row="0" Margin="10,5,0,16.5" HorizontalAlignment="Left"
+                            Style="{StaticResource MaterialDesignFlatButtonInfo}" Command="{Binding NuevoCommand}" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Plus" Margin="0,0,10,0"/>
+                            <TextBlock Text="Nuevo"/>
+                        </StackPanel>
+                    </Button>
+                    <DataGrid Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="White" BorderThickness="1" Grid.Row="1" Margin="10"
+                              HorizontalAlignment="Stretch" AutoGenerateColumns="False" IsReadOnly="True" 
+                              CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding DataSubReceta}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Acciones">
+                                <DataGridTemplateColumn.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                        <Setter Property="Margin" Value="0"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="FontSize" Value="15"/>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Foreground="#00bcd4" Style="{StaticResource MaterialDesignOutlinedButton}" Command="{Binding Path=DataContext.EditarSubRecetaCommand,
+                                                RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }"
+                                                CommandParameter="{Binding SR_ID}"
+                                                Content="{materialDesign:PackIcon Kind=FileDocumentEdit}" ToolTip="Editar" Padding="0" Height="25" Width="30" Margin="0,0,5,0" />
+                                            <Button Foreground="#f44336" Style="{StaticResource MaterialDesignOutlinedButton}"
+                                                ToolTip="{Binding TextoActDes}" Padding="0" Height="25" Width="30" 
+                                                Command="{Binding Path=DataContext.EliminarSubRecetaCommand,
+                                                RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }"
+                                                CommandParameter="{Binding SR_ID}">
+                                                <StackPanel>
+                                                    <materialDesign:PackIcon Kind="{Binding iconoActDes, FallbackValue=ArrowDropUp}"
+                                                                             Foreground="Red" HorizontalAlignment="Center" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="ID" Binding="{Binding SR_ID}" FontSize="15"/>
+                            <DataGridTextColumn Header="NOMBRE SUB RECETA" Binding="{Binding SR_DESCR}" FontSize="15"/>
+                            <DataGridTextColumn Header="COSTO SUB RECETA" Binding="{Binding SR_COSTO}" FontSize="15"/>
+                            <DataGridTemplateColumn Header="ESTADO" >
+                                <DataGridTemplateColumn.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}" >
+                                        <Setter Property="Margin" Value="0" />
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <CheckBox IsEnabled="False" Style="{StaticResource MaterialDesignCheckBox}" FontSize="15"
+                                                      IsChecked="{Binding SR_ACT}" Padding="0" Height="25" Width="30" Margin="0,0,5,0" 
+                                                      Foreground="#F74D24" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </ContentControl>
+            <ContentControl Grid.Row="1" x:Name="ContentGrid2" Grid.RowSpan="2">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                                <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                                <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"/>
+                        <RowDefinition Height="0.80*"/>
+                        <RowDefinition Height="0.1*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Button x:Name="btnGuardar" Width="130" Height="40" Grid.Row="0" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" 
+                             Command="{Binding GuardarSubRecetaCommand}"  Style="{StaticResource MaterialDesignFlatButtonSuccess}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0"/>
+                                <TextBlock Text="Guardar"/>
+                            </StackPanel>
+
+
+                        </Button>
+                        <Button Width="130" Height="40" Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" HorizontalAlignment="Left" 
+                             Command="{Binding CancelarCommand}" Style="{StaticResource MaterialDesignFlatButtonDanger}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Cancel" Margin="0,0,10,0"/>
+                                <TextBlock Text="Cancelar"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="{Binding NombreSubReceta}" FontSize="50"/>
+                        <Label Visibility="Hidden" Content="{Binding Recetas.ID}" FontSize="30" 
+                           Foreground="Black" HorizontalAlignment="Right"/>
+                    </StackPanel>
+                    <ScrollViewer Margin="20" Grid.Row="1">
+                        <Grid Margin="20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.9*"/>
+                                <RowDefinition Height="0.1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" 
+                              VerticalAlignment="Stretch">
+                                <StackPanel Background="white" Margin="30">
+                                    <TextBox Margin="20" x:Name="txtDescripcion" Grid.Row="0" Grid.Column="1"  FontSize="15"
+                                   Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" IsEnabled="{Binding EnabledTextSR}"  
+                                         materialDesign:HintAssist.Hint="Nombre de la Sub Receta" Height="34" Text="{Binding Recetas.SR_DESCR}"/>
+                                    <ComboBox Margin="20"  x:Name="cboinsumo" Grid.Row="1" Grid.Column="1"  Height="34" FontSize="15" materialDesign:HintAssist.Hint="Seleccione insumo" 
+                                    Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"  SelectedItem="{Binding InsumoSelected}" 
+                                          IsEditable="True" ItemsSource="{Binding DataInsumos}" 
+                                          SelectedValue="{Binding Insumos.idins}" DisplayMemberPath="nomins" SelectedValuePath="idins" 
+                                          IsEnabled="{Binding IsEnabledCombo}"/>
+                                    <TextBox Margin="20"  x:Name="txtCantidad" Grid.Row="2" Grid.Column="1"  FontSize="15"
+                                   Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="Cantidad de Insumo"
+                                         Height="34" Text="{Binding CantidadInsumo}"/>
+                                    <Button Margin="20"  Content="{Binding AccionBoton}" Grid.Row="3" Grid.Column="1"  Style="{StaticResource MaterialDesignFlatButtonSuccess}"
+                                        Command="{Binding AgregarInsumoCommand}" CommandParameter="{Binding InsumoSeleccionado}"/>
+                                    <Button Grid.Row="5" Grid.Column="1" Content="Cancelar" Style="{StaticResource MaterialDesignFlatButtonDanger}"
+                            Command="{Binding CancelarEdit}" Width="100" Visibility="{Binding VisibilityBoton}"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.03*" />
+                                    <RowDefinition Height="0.97*" />
+                                </Grid.RowDefinitions>
+                                <DockPanel Background="AntiqueWhite" Grid.Row="0" 
+                                HorizontalAlignment="Right" Margin="10">
+                                    <Label Foreground="Black" FontSize="20">Costo Sub Receta:</Label>
+                                    <Label Foreground="Black" FontSize="20" Content="{Binding CostoReceta}" />
+                                </DockPanel>
+                                <!--NUEVO-->
+                                <ContentControl Grid.Row="1" x:Name="ContentGrid3" Grid.RowSpan="2">
+                                    <ContentControl.Style>
+                                        <Style TargetType="ContentControl">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                                                    <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                                                    <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                                                    <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                    <Grid Grid.Column="1" Grid.Row="1" Margin="10">
+                                        <DataGrid Grid.Row="1" Margin="10" HorizontalAlignment="Center"
+                                          AutoGenerateColumns="False" CanUserAddRows="False"
+                                          CanUserDeleteRows="True" ItemsSource="{Binding Path=DataInsumosSubReceta, UpdateSourceTrigger=PropertyChanged}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding idins}" FontSize="15"/>
+                                                <DataGridTextColumn IsReadOnly="True" Header="NOMBRE" Binding="{Binding nomins}" FontSize="15"/>
+                                                <!--<DataGridTextColumn  Header="CANTIDAD" Binding="{Binding INS_CANTIDAD, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontSize="15"/>-->
+                                                <DataGridTemplateColumn Header="CANTIDAD">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock  FontSize="15" Text="{Binding Path=INS_CANTIDAD, UpdateSourceTrigger=PropertyChanged}" />
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <DataGridTextColumn IsReadOnly="True" Header="COSTO" Binding="{Binding precio}" FontSize="15"/>
+                                                <DataGridTemplateColumn Header="Acciones">
+                                                    <DataGridTemplateColumn.CellStyle>
+                                                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                                            <Setter Property="Margin" Value="0"/>
+                                                            <Setter Property="Padding" Value="0"/>
+                                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                            <Setter Property="BorderThickness" Value="0"/>
+                                                        </Style>
+                                                    </DataGridTemplateColumn.CellStyle>
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Button Foreground="#266EDC" Style="{StaticResource MaterialDesignOutlinedButton}" 
+                                                                    Command="{Binding Path=DataContext.EditarCommand,
+                                                                    RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }"
+                                                                    CommandParameter="{Binding idins}"
+                                                                    Content="{materialDesign:PackIcon Kind=FileDocumentEdit}" ToolTip="Editar" Padding="0" Height="25" Width="30" Margin="0,0,5,0"/>
+                                                                <Button Foreground="#f44336" Style="{StaticResource MaterialDesignOutlinedButton}" Content="{materialDesign:PackIcon Kind=Delete}"
+                                                                    ToolTip="Eliminar" Padding="0" Height="25" Width="30" 
+                                                                    Command="Delete"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid>
+                                </ContentControl>
+                                <!--EDITAR-->
+                                <ContentControl Grid.Row="1" x:Name="ContentGrid4" Grid.RowSpan="2">
+                                    <ContentControl.Style>
+                                        <Style TargetType="ContentControl">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                                                    <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                                                    <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                                                    <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                    <Grid Grid.Column="1" Grid.Row="1" Margin="10">
+                                        <DataGrid Grid.Row="1" Margin="10" HorizontalAlignment="Center"
+                                  AutoGenerateColumns="False" CanUserAddRows="False"
+                                  CanUserDeleteRows="True"  ItemsSource="{Binding _DataDetalleSubRecetaInsumo}">
+                                            <DataGrid.Columns>
+                                                <DataGridTemplateColumn Header="Acciones">
+                                                    <DataGridTemplateColumn.CellStyle>
+                                                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                                            <Setter Property="Margin" Value="0"/>
+                                                            <Setter Property="Padding" Value="0"/>
+                                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                            <Setter Property="BorderThickness" Value="0"/>
+                                                        </Style>
+                                                    </DataGridTemplateColumn.CellStyle>
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Button Foreground="#00bcd4" Style="{StaticResource MaterialDesignOutlinedButton}" 
+                                                                        Command="{Binding Path=DataContext.EditarCommand,
+                                                                        RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }"
+                                                                        CommandParameter="{Binding ID}"
+                                                                        Content="{materialDesign:PackIcon Kind=FileDocumentEdit}" ToolTip="Editar" Padding="0" Height="25" Width="30" Margin="0,0,5,0"/>
+                                                                <!--<Button Foreground="#f44336"  Style="{StaticResource MaterialDesignOutlinedButton}" Content="{materialDesign:PackIcon Kind=Delete}"
+                                                                    ToolTip="Eliminar" Padding="0" Height="25" Width="30" 
+                                                                    Command="{Binding Path=DataContext.EliminarCommand,
+                                                                    RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }"
+                                                                    CommandParameter="{Binding ID}"/>-->
+                                                                <Button Foreground="#f44336" Style="{StaticResource MaterialDesignOutlinedButton}" Content="{materialDesign:PackIcon Kind=Delete}"
+                                                                    ToolTip="Eliminar" Padding="0" Height="25" Width="30" 
+                                                                    Command="Delete"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Visibility="Hidden" FontSize="15"/>
+                                                <DataGridTextColumn Header="INSUMO" Binding="{Binding INS_NOM}" FontSize="15"/>
+                                                <DataGridTextColumn Header="CANTIDAD" Binding="{Binding DSI_CANT_INS}" FontSize="15"/>
+                                                <DataGridTextColumn Header="COSTO" Binding="{Binding DSI_COSTO_INS}" FontSize="15"/>
+
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid>
+                                </ContentControl>
+                            </Grid>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </ContentControl>
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

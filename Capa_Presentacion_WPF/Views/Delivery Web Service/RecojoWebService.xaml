@@ -1,0 +1,263 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Delivery_Web_Service.RecojoWebService"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Delivery_Web_Service"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <!--<Setter TargetName="ScrollBarRectangle" Property="Width" Value="100" />-->
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="20" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <!--ff8e1e-->
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="20" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="20" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <!--LISTA-->
+        <Grid Grid.Row="0" Background="#263238">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="20,0,20,0"
+                                 Padding="32" Background="White" UniformCornerRadius="15" MinHeight="370"
+                                 VerticalAlignment="Center" HorizontalAlignment="Stretch">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*" />
+                        <RowDefinition Height="0.2*" />
+                        <RowDefinition Height="0.7*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Pedidos Recojo" FontSize="30" TextAlignment="Center"></TextBlock>
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Grid Grid.Row="3" HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <DatePicker Margin="5,0,5,0" Grid.Column="0" materialDesign:HintAssist.Hint="Desde" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                                      Language="ES"  FontSize="15" HorizontalAlignment="Stretch" SelectedDate="{Binding FechaDesde}"/>
+
+                            <DatePicker Margin="5,0,5,0" Grid.Column="1" materialDesign:HintAssist.Hint="Hasta" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                                     Language="ES"   FontSize="15" HorizontalAlignment="Stretch" SelectedDate="{Binding FechaHasta}"/>
+                        </Grid>
+                        <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}" Command="{Binding BuscarCommand}" 
+                                    HorizontalAlignment="Center" ToolTip="Buscar">
+                            <materialDesign:PackIcon Kind="Magnify" Opacity=".56" Width="25" Height="25" Foreground="#29b6f6" />
+                        </Button>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="2" VerticalAlignment="Stretch">
+                        <ItemsControl ItemsSource="{Binding DateCartaDelivery}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="3"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#cccccc" BorderThickness="1" MinWidth="350" MinHeight="200" Margin="10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.5*"/>
+                                                <ColumnDefinition Width="0.4*"/>
+                                                <ColumnDefinition Width="0.1*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Vertical">
+                                                <Label Content="{Binding fname}" FontSize="15" FontWeight="Bold" ToolTip="Cliente" />
+                                                <Label ToolTip="Total">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="Money100" VerticalAlignment="Center" />
+                                                        <Label Content="{Binding total}" VerticalAlignment="Center" />
+                                                    </StackPanel>
+                                                </Label>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label ToolTip="Tipo Documento Electronico">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <materialDesign:PackIcon Kind="FileDocumentBoxCheckOutline" VerticalAlignment="Center" />
+                                                            <Label Content="{Binding NomTipDoc}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </Label>
+                                                    <Label ToolTip="Tipo Documento">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <materialDesign:PackIcon Kind="FileDocumentBoxCheckOutline" VerticalAlignment="Center" />
+                                                            <Label Content="{Binding NomTipIde}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </Label>
+                                                    <Label ToolTip="Nro Documento">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <materialDesign:PackIcon Kind="FileDocumentBoxCheckOutline" VerticalAlignment="Center" />
+                                                            <Label Content="{Binding nro_identidad_cliente}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </Label>
+                                                    <Label ToolTip="Razon">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <materialDesign:PackIcon Kind="FileDocumentBoxCheckOutline" VerticalAlignment="Center" />
+                                                            <Label Content="{Binding deno_cliente}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </Label>
+                                                </StackPanel>
+
+                                                <Label ToolTip="Telefono del cliente">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="TelephoneInTalk" VerticalAlignment="Center" />
+                                                        <Label Content="{Binding mobile}" VerticalAlignment="Center" />
+                                                    </StackPanel>
+                                                </Label>
+                                                <Label ToolTip="Direccion del cliente">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="MailRu" VerticalAlignment="Center" />
+                                                        <Label Content="{Binding address}" VerticalAlignment="Center" />
+                                                    </StackPanel>
+                                                </Label>
+                                                <Label ToolTip="Tipo de Entrega">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="{Binding img_entrega}" VerticalAlignment="Center"/>
+                                                        <Label Content="{Binding deno_entrega}" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Label>
+                                                <Label ToolTip="Tipo de Pago">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="Money100" VerticalAlignment="Center"/>
+                                                        <Label Content="{Binding metodo_pago}" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Label>
+                                                <Label ToolTip="Fecha del pedido">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="CalendarMonthOutline" VerticalAlignment="Center"/>
+                                                        <Label Content="{Binding date}" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Label>
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                    <Button IsEnabled="{Binding Habilitado}" x:Name="btnGuardar" Width="130" Height="40" Grid.Row="0" Grid.Column="0" Margin="10,0,0,20" HorizontalAlignment="Left" 
+                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.GuardarCommand}"
+                                                            CommandParameter="{Binding cod_orden}" Style="{StaticResource MaterialDesignFlatButtonSuccess}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0"/>
+                                                            <TextBlock Text="ACEPTAR"/>
+                                                        </StackPanel>
+                                                    </Button>
+                                                    <Button IsEnabled="{Binding Habilitado}" Width="130" Height="40" Grid.Row="0" Grid.Column="1" Margin="10,0,0,20" HorizontalAlignment="Left" 
+                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.CancelarCommand}"
+                                                            CommandParameter="{Binding cod_orden}" Style="{StaticResource MaterialDesignFlatButtonDanger}">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <materialDesign:PackIcon Kind="Cancel" Margin="0,0,10,0"/>
+                                                            <TextBlock Text="RECHAZAR"/>
+                                                        </StackPanel>
+                                                    </Button>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Style="{StaticResource MaterialDesignOutlinedButton}" 
+                                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.AbrirDialogDetPedido}"
+                                                            CommandParameter="{Binding cod_orden}" Foreground="#6D01E8" Background="Transparent"
+                                                Content="{materialDesign:PackIcon Kind=Eye}" ToolTip="Ver Detalle" Padding="0" Height="25" Width="30" Margin="0,0,0,0" />
+                                                    <Label ToolTip="Nro Orden">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Label Content="{Binding cod_orden}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </Label>
+                                                </StackPanel>
+
+                                                <Label ToolTip="Estado Pedido">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Label Content="{Binding status}" VerticalAlignment="Center" />
+                                                    </StackPanel>
+                                                </Label>
+                                            </StackPanel>
+
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                </Grid>
+
+            </materialDesign:Card>
+
+        </Grid>
+    </Grid>
+</UserControl>

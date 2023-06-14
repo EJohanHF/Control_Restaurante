@@ -1,0 +1,51 @@
+﻿<Window x:Class="Capa_Presentacion_WPF.Views.PersonaViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views"
+        xmlns:vm="clr-namespace:Capa_Presentacion_WPF.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="PersonaViewer" Height="450" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <!--<ListBox ItemsSource="{Binding ListaPersonas}" SelectedItem="{Binding CurrentPersona}"></ListBox>-->
+        <!--<TreeView x:Name="TreeViewMenu" ItemsSource="{Binding personas}">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding children}">
+                    <StackPanel Orientation="Horizontal">                       
+                        <TextBlock VerticalAlignment="Center" Text="{Binding nombre}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>-->
+
+        <TreeView x:Name="FolderView" ItemsSource="{Binding Items}">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource MaterialDesignTreeViewItem}">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <!--<Image Width="20" Margin="3" Source="{Binding ImageName, Converter={x:Static local:HeaderToImageConverter.Instance}}" />-->
+                        <materialDesign:PackIcon Kind="{Binding Icon, FallbackValue=ArrowDropUp}" Margin="0,0,5,0" />
+                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <Label Grid.Row="1" Content="{Binding Items.Count}"></Label>        
+    </Grid>
+</Window>

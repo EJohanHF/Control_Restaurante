@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Dialogs.Correos.DialogListaCorreo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="300" MaxWidth="500">
+    <UserControl.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="ScrollBarRectangle" Property="Width" Value="300" />
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="-5,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="8" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="8" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="8" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridRow}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding EMPR_DEFAULT}" Value="1">
+                    <Setter Property="Background" Value="#F2F997" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="20" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical"  Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock FontSize="19" TextAlignment="Center" Text="Listado de Correos" FontWeight="Bold" Foreground="#25A1FC"/>
+            <TextBlock FontSize="19" TextAlignment="Center" Text="{Binding EmpDefault}"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox x:Name="txtcorreo"  Margin="10,0,0,0" Focusable="True" Text="{Binding AddEmail}" materialDesign:HintAssist.Hint="@Email" FontSize="14"
+                                Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" HorizontalAlignment="Stretch" MinWidth="250" MaxWidth="250"
+                     TextAlignment="Center" FontWeight="Bold" FontFamily="Arial"/>
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding OperacionCorreo}" Value="Lista">
+                                <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding OperacionCorreo}" Value="Editar">
+                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Button Height="30" Width="auto" Margin="10,0,0,0" HorizontalAlignment="Left"
+                           Command="{Binding GuardarCorreoCommand}" Style="{StaticResource MaterialDesignFlatButtonInfo}" Grid.RowSpan="1" >
+                    <DockPanel>
+                        <materialDesign:PackIcon Kind="Plus"  Margin="0,0,0,0" Foreground="#ffffff" VerticalAlignment="Center"/>
+                        <TextBlock Text="Agregar" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+            </Grid>
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding OperacionCorreo}" Value="Lista">
+                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding OperacionCorreo}" Value="Editar">
+                                <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <DockPanel>
+                    <Button Height="30" Width="auto" Margin="10,0,0,0" HorizontalAlignment="Left"
+                           Command="{Binding ActualizarCorreoCommand}" Style="{StaticResource MaterialDesignFlatButtonSuccess}" Grid.RowSpan="1" >
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Update"  Margin="0,0,0,0" Foreground="#ffffff" VerticalAlignment="Center"/>
+                            <TextBlock Text="Actualizar" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </Button>
+                    <Button Height="30" Width="auto" Margin="10,0,0,0" HorizontalAlignment="Left"
+                           Command="{Binding CancelarCorreoCommand}" Style="{StaticResource MaterialDesignFlatButtonDanger}" Grid.RowSpan="1" >
+                        <DockPanel>
+                            <TextBlock Text="Cancelar" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </Button>
+                </DockPanel>
+            </Grid>
+            
+
+        </StackPanel>
+        <materialDesign:Card Grid.Row="2" materialDesign:ShadowAssist.ShadowDepth="Depth1"  Padding="10" MinWidth="300" Background="White" VerticalAlignment="Center" 
+                                         UniformCornerRadius="15" Margin="15" IsEnabled="{Binding EnabledGridCorreos}">
+            <DataGrid Width="auto" HorizontalAlignment="Center" Grid.Row="2" Margin="0,10" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" 
+                      CanUserDeleteRows="False" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DataListaCorreos,UpdateSourceTrigger=PropertyChanged}" MinHeight="110" Background="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding idcorreo}" FontSize="15"/>
+                    <DataGridTextColumn Header="Correo" Binding="{Binding correo}" FontSize="15"/>
+                    <DataGridTemplateColumn Header="" >
+                        <DataGridTemplateColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGridTemplateColumn.CellStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource MaterialDesignOutlinedButton}" Content="{materialDesign:PackIcon Kind=Edit}"
+                                                ToolTip="Editar" Padding="0" Height="25" Width="30" 
+                                                Command="{Binding Path=DataContext.EditarListaCorreosCommand,
+                                                RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }" Foreground="#f44336"
+                                                CommandParameter="{Binding idcorreo}"/>
+                                    <Button Style="{StaticResource MaterialDesignOutlinedButton}" Content="{materialDesign:PackIcon Kind=Delete}"
+                                                ToolTip="Eliminar" Padding="0" Height="25" Width="30" 
+                                                Command="{Binding Path=DataContext.EliminarListaCorreosCommand,
+                                                RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }" Foreground="#f44336"
+                                                CommandParameter="{Binding idcorreo}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </materialDesign:Card>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" x:Name="Botones"   >
+            <Button Style="{StaticResource MaterialDesignFlatButtonSuccess}" IsDefault="True" 
+                                Command="{Binding CerrarDialogCommand}" Content="Guardar" Width="100">
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFlatButtonDanger}" IsDefault="True" Margin="20,0,0,0"
+                                Command="{Binding SalirDialogCommand}" Content="Salir" Width="100">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

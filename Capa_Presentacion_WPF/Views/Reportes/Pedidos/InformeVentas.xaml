@@ -1,0 +1,410 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Reportes.Pedidos.InformeVentas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Reportes.Pedidos"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <!--<Setter TargetName="ScrollBarRectangle" Property="Width" Value="300" />-->
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="20" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="20" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="20" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridCell}">
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="true">
+                    <Setter Property="Background" Value="#ffb74d" />
+                    <Setter Property="BorderThickness" Value="0.5"></Setter>
+                    <Setter Property="BorderBrush" Value="White"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+    </UserControl.Resources>
+    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="20" Background="White" 
+                                 VerticalAlignment="Stretch" UniformCornerRadius="15" Margin="20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <DockPanel HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0">
+                <!--TITULO-->
+                <Label Content="Total de Ventas" FontSize="13" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            </DockPanel>
+            <!--FILTROS-->
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Padding="5" Background="White" Height="auto" HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch" UniformCornerRadius="15" Margin="10" Grid.Row="1" Grid.Column="0" Width="auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.15*"/>
+                        <ColumnDefinition Width="0.15*"/>
+                        <ColumnDefinition Width="0.30*"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="0.5*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" Background="#fcfcfc" HorizontalAlignment="Center" Margin="5,0,5,0">
+                        <TextBlock Text="Caja: " TextWrapping="Wrap" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="cboCajas" TabIndex="1" Grid.Column="1" Margin="5" Height="30" FontSize="14" materialDesign:HintAssist.Hint="Seleccione" IsSynchronizedWithCurrentItem="True"
+                                  Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" SelectedItem="{Binding CajaSelected}" ItemsSource="{Binding ComboCajas}" 
+                                  SelectedValue="{Binding Ent_Combo.id}" DisplayMemberPath="nombre" SelectedValuePath="id" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                  MinWidth="160"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Background="#fcfcfc" HorizontalAlignment="Center" Margin="5,0,5,0">
+                        <TextBlock Text="Canal de Venta: " TextWrapping="Wrap" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="cboCanales" TabIndex="2" Grid.Column="1" Margin="5" Height="30" FontSize="14" materialDesign:HintAssist.Hint="Seleccione" IsSynchronizedWithCurrentItem="True"
+                                  Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" SelectedItem="{Binding CanalSelected}" ItemsSource="{Binding DataCanal}" 
+                                  SelectedValue="{Binding Ambiente.id}" DisplayMemberPath="nombre" SelectedValuePath="id" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                  MinWidth="160"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Background="#fcfcfc" HorizontalAlignment="Center" Margin="5,0,5,0">
+                        <TextBlock Text="Comprobante: " TextWrapping="Wrap" Grid.Column="0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cboComprobantes" TabIndex="3" Grid.Column="1" Margin="5" Height="30" FontSize="14" materialDesign:HintAssist.Hint="Seleccione" IsSynchronizedWithCurrentItem="True"
+                                  Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" SelectedItem="{Binding ComprobanteSelected}" ItemsSource="{Binding DataComprobante}" 
+                                  SelectedValue="{Binding Tipo_Doc_Electronico.VALOR_TIPO_DOC}" DisplayMemberPath="NOM_TIPO_DOC" SelectedValuePath="VALOR_TIPO_DOC"  VerticalAlignment="Center" HorizontalAlignment="Left"
+                                  MinWidth="160"/>
+                    </StackPanel>
+                    <!--<StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Background="#fcfcfc" HorizontalAlignment="Center" Margin="5,0,5,0">
+                        <TextBlock Text="Serie: " Grid.Column="0" VerticalAlignment="Center"/>
+                        <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                            <TextBox x:Name="txtSerie" TabIndex="4" materialDesign:HintAssist.Hint="B001" Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalAlignment="Stretch"
+                                     Margin="0,2,0,0" MinWidth="160" Text="{Binding Serie, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" FontWeight="Bold" FontSize="15"/>
+                        </Border>
+                    </StackPanel>-->
+
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Background="#fcfcfc" HorizontalAlignment="Center" Margin="5,0,5,0">
+                        <TextBlock Text="Estado: " Grid.Column="0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cboEstado" TabIndex="5" Grid.Column="1" Margin="5" Height="30" FontSize="14" materialDesign:HintAssist.Hint="Seleccione Estado" IsSynchronizedWithCurrentItem="True"
+                                  Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}" SelectedItem="{Binding EstadoSelected}" ItemsSource="{Binding DataEstado}" 
+                                  SelectedValue="{Binding Estado_Financiero.ID}" DisplayMemberPath="DESC_EST" SelectedValuePath="ID"  VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   MinWidth="160"/>
+                    </StackPanel>
+                    <!--<StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" Background="#fcfcfc" HorizontalAlignment="Center" Margin="5,0,5,0">
+                        <TextBlock Text="Numero: " Grid.Column="0" VerticalAlignment="Center"/>
+                        <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="2">
+                            <TextBox x:Name="txtNumero" TabIndex="6" materialDesign:HintAssist.Hint="00000123" Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalAlignment="Stretch"
+                                     Margin="0,2,0,0" MinWidth="160" Text="{Binding Correlativo, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" FontWeight="Bold" FontSize="15"/>
+                        </Border>
+                    </StackPanel>-->
+
+                    <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5,0,5,0">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="35,10,35,10">
+                            <DockPanel>
+                                <DatePicker TabIndex="7" Grid.Row="0" Grid.Column="0" materialDesign:HintAssist.Hint="Desde: " Width="130" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                    FontWeight="Bold" Background="#fcfcfc" Foreground="Black" SelectedDate="{Binding Desde}" FontSize="13" HorizontalAlignment="Left" Language="ES"/>
+                                <materialDesign:TimePicker Is24Hours="True" Width="130" Background="#fcfcfc" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                                                           materialDesign:HintAssist.Hint="Hora inicio" SelectedTime="{Binding HoraInicio}" FontWeight="Bold"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <DatePicker TabIndex="8" Grid.Row="0" Grid.Column="1" materialDesign:HintAssist.Hint="Hasta: " Width="130" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                    FontWeight="Bold" Background="#fcfcfc" Foreground="Black" SelectedDate="{Binding Hasta}" FontSize="13" HorizontalAlignment="Left" Language="ES"/>
+                                <materialDesign:TimePicker Is24Hours="True" Width="130" Background="#fcfcfc" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                                                           materialDesign:HintAssist.Hint="Hora fin" SelectedTime="{Binding HoraFin}" FontWeight="Bold">
+                                </materialDesign:TimePicker>
+                            </DockPanel>
+                            
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Column="3" Grid.Row="0" HorizontalAlignment="Stretch">
+                        <Button Width="auto" Height="25" Grid.Row="0" Grid.Column="1" Margin="0" VerticalAlignment="Center"
+                             Style="{StaticResource MaterialDesignFlatButtonWarning}" Click="Button_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="EraserVariant" Margin="0,0,0,0"/>
+                                <TextBlock Text="Limpiar" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="4" Grid.Row="1" HorizontalAlignment="Stretch">
+                        <Button Width="auto" Height="25" Grid.Row="0" Grid.Column="1" Margin="0" VerticalAlignment="Center"
+                             Style="{StaticResource MaterialDesignFlatButtonSuccess}" Command="{Binding AplicarFiltrosCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Search" Margin="0,0,0,0"/>
+                                <TextBlock Text="Aplicar" FontSize="13"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+
+
+                </Grid>
+            </materialDesign:Card>
+            <!--CONSOLIDADO-->
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinHeight="70">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.80*" />
+                    <ColumnDefinition Width="0.20*" />
+                </Grid.ColumnDefinitions>
+                <materialDesign:Card Grid.Column="0" Background="#FFF" Foreground="#FFF" UniformCornerRadius="6" Margin="10" VerticalAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.20*"/>
+                            <ColumnDefinition Width="0.20*"/>
+                            <ColumnDefinition Width="0.20*"/>
+                            <ColumnDefinition Width="0.20*"/>
+                            <ColumnDefinition Width="0.20*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                            <Label Content="Sub Total" FontSize="13" Foreground="#000" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap" FontSize="30" Text="{Binding CONSOLIDADO_OPGRAVADAS}" Foreground="#ffb74d" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                <Label Content="soles" Foreground="Gray" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                            <Label Content="Impuestos" FontSize="13" Foreground="#000" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap" FontSize="30" Text="{Binding CONSOLIDADO_IGV}" Foreground="#4db6ac" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <Label Content="soles" Foreground="Gray" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                            <Label Content="ICBPER" FontSize="13" Foreground="#000" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap" FontSize="30" Text="{Binding CONSOLIDADO_ICBPER}" Foreground="#00bcd4" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <Label Content="soles" Foreground="#00bcd4" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="3" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                            <Label Content="RC" FontSize="13" Foreground="#000" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap" FontSize="30" Text="{Binding CONSOLIDADO_RC}" Foreground="#ff1744" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <Label Content="soles" Foreground="#ff1744" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="4" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                            <Label Content="Total Tributado" FontSize="13" Foreground="#000" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap" FontSize="30" Text="{Binding CONSOLIDADO_TOTALTRIBUTARIO}" Foreground="#000" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <Label Content="soles" Foreground="Gray" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Grid.Column="1" Background="#FFF" Foreground="#FFF" UniformCornerRadius="6" Margin="10" VerticalAlignment="Stretch">
+                    <Grid>
+                        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                            <Label Content="Total de Venta Bruta" FontSize="13" Foreground="#000" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap" FontSize="30" Text="{Binding CONSOLIDADO_TOTAL}" Foreground="#ffb74d" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                <Label Content="soles" Foreground="Gray" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+            <!--DATA-->
+            <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                <DataGrid VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="White" IsReadOnly="True"
+                            HorizontalAlignment="Stretch" BorderBrush="White" BorderThickness="1" Margin="10,10,10,0"
+                            CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Stretch"
+                            AutoGenerateColumns="False" ItemsSource="{Binding DataVentas, Mode=OneWay}" 
+                            MinHeight="100" MaxHeight="500">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="" >
+                            <DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                    <Setter Property="Margin" Value="0"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Style>
+                            </DataGridTemplateColumn.CellStyle>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Command="{Binding Path=DataContext.AbrirDialogDetPedido,
+                                                        RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }" Foreground="#9A03FC" Background="Transparent"
+                                                        CommandParameter="{Binding id_ped}"
+                                                        Content="{materialDesign:PackIcon Kind=Eye}" ToolTip="Detalle pedido" Padding="0" Height="25" Width="30" Margin="0,0,5,0" >
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Setter Property="Background" Value="White"/>
+                                                    <Setter Property="BorderBrush" Value="White"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding nom_estado_f}" Value="ANULADO">
+                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="ID" Binding="{Binding id_ped}" FontSize="13"/>
+                        <DataGridTemplateColumn Header="N° Diario" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding num_dia_ped}" FontSize="13" TextWrapping="Wrap" MaxWidth="50"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Mesa" Binding="{Binding nom_mesa}" FontSize="13"/>
+                        <DataGridTextColumn Header="Descuento" Binding="{Binding desc_ped}" FontSize="13"/>
+                        <DataGridTextColumn Header="Subtotal" Binding="{Binding subtotal_ped}" FontSize="13"/>
+                        <DataGridTextColumn Header="Precio total" Binding="{Binding total_ped}" FontSize="13"/>
+                        <DataGridTextColumn Header="F. Pedido" Binding="{Binding f_ped}" FontSize="13"/>
+                        <DataGridTemplateColumn Header="Estado Financiero" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding nom_estado_f}" Foreground="{Binding color_chips}" FontWeight="Bold" FontSize="13" TextWrapping="Wrap" MaxWidth="100" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Caja" Binding="{Binding PED_NOM_EQUIPO}" IsReadOnly="True" FontSize="13"/>
+                        <DataGridTemplateColumn Header="Nro Personas" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding nro_personas}" FontSize="13" TextWrapping="Wrap" MaxWidth="100" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Cliente" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding nomllevar}" FontSize="13" TextWrapping="Wrap" MaxWidth="150"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Telefono" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding telefcli}" FontSize="13" TextWrapping="Wrap" MaxWidth="150"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Tipo Descuento" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding nom_tip_desc}" FontSize="13" TextWrapping="Wrap" MaxWidth="120"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Forma de pago" Binding="{Binding nom_fpago}" FontSize="13"/>
+                        <DataGridTextColumn Header="Datos de Tarjeta" Binding="{Binding nro_tarjeta}" FontSize="13"/>
+                        <DataGridTextColumn Header="Mozo" Binding="{Binding nom_emple}" FontSize="13"/>
+                        <DataGridTextColumn Header="Usuario" Binding="{Binding nom_usu}" FontSize="13"/>
+                        <DataGridTextColumn Header="Serie de Documento" Binding="{Binding nom_tipo_Doc}" FontSize="13"/>
+                        <DataGridTextColumn Header="Importe" Binding="{Binding importe_Total_Doc_Elec}" FontSize="13"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <DockPanel HorizontalAlignment="Right" Grid.Row="4">
+                <Label Content="Registros: "  VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding nroRegistros}" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,20,0"/>
+            </DockPanel>
+            <!--Exportar e Imprimir-->
+            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Margin="0,0,0,0">
+                <Button  Width="100" Height="30" Grid.Row="0" Grid.Column="1" Margin="0,0,10,5" VerticalAlignment="Top" HorizontalAlignment="Right"
+                             Style="{StaticResource MaterialDesignFlatButtonSuccess}" Command="{Binding ExportaExcelCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FileExcel" Margin="0,0,10,0"/>
+                        <TextBlock Text="Excel"/>
+                    </StackPanel>
+                </Button>
+                <Button  Width="100" Height="30" Grid.Row="0" Grid.Column="2" Margin="10,0,10,5" VerticalAlignment="Top" HorizontalAlignment="Center" 
+                             Style="{StaticResource MaterialDesignFlatButtonDanger}" Command="{Binding ExportarPDFCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PdfBox" Margin="0,0,10,0"/>
+                        <TextBlock Text="PDF"/>
+                    </StackPanel>
+                </Button>
+                <!--<Button  Width="120" Height="30" Grid.Row="0" Grid.Column="3" Margin="10,0,0,5" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                             Style="{StaticResource MaterialDesignFlatButtonInfo}"
+                   Command="{Binding ImprimirCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="LocalPrintShop" Margin="0,0,10,0"/>
+                        <TextBlock Text="Imprimir"/>
+                    </StackPanel>
+                </Button>-->
+            </StackPanel>
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

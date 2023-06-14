@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Dialogs.EmpresaDefault.DialogEmpresaDelivery"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Dialogs.EmpresaDefault"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+              Width="500" Height="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="EMPRESA APP DELIVERY" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40"></TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="0.7*"/>
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontSize="15">Ruc:</Label>
+            <TextBox Grid.Row="0" Grid.Column="1"  FontSize="15" Text="{Binding EmpresaDelivery2.ruc}" Margin="30,0,50,0"
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="20603000472" Height="34" />
+            <Label VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontSize="15">Nombre:</Label>
+            <TextBox Grid.Row="1" Grid.Column="1"  FontSize="15" Text="{Binding EmpresaDelivery2.nombre_razon}" Margin="30,0,50,0"
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="SOS-TIC" Height="34" />
+            <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontSize="15">Direccion:</Label>
+            <TextBox Grid.Row="2" Grid.Column="2"  FontSize="15" Text="{Binding EmpresaDelivery2.direccion}" Margin="30,0,50,0"
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="Callao" Height="34" />
+            <Label VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontSize="15">Tiempo Espera:</Label>
+            <TextBox Grid.Row="3" Grid.Column="3"  FontSize="15" Text="{Binding EmpresaDelivery2.tiempo_espera}" Margin="30,0,50,0"
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="30min" Height="34" />
+            <!--<Button x:Name="btnCargarLogo"  Height="34" Width="50" Grid.Row="2" Grid.Column="0"  HorizontalAlignment="Right" Margin="0,1,0,0" 
+                           Command="{Binding btnImagenCommand}" Style="{StaticResource MaterialDesignOutlinedButton}" Grid.ColumnSpan="1" Grid.RowSpan="1" >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="ImageAdd" Margin="0,0,10,0" Foreground="#F7B71B"/>
+
+                </StackPanel>
+            </Button>
+            <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" Height="119" Width="150" BorderBrush="#E9E9E9 "  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="30,0,41,0" Grid.RowSpan="3" >
+                <Image x:Name="imglogo" Grid.Row="1" Grid.Column="1" Width="auto" HorizontalAlignment="Left"  Source="{Binding Lgo}" Margin="28,3,0,-41" Grid.RowSpan="2"  />
+            </Border>-->
+            <Grid Grid.Row="4" Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btGuardar" Width="135" Height="Auto" Grid.Row="0" Grid.Column="0" Margin="10,5,0,5" HorizontalAlignment="Left" 
+                             Command="{Binding Guardar}" Style="{StaticResource MaterialDesignFlatButtonSuccess}" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0"/>
+                        <TextBlock Text="Guardar"/>
+                    </StackPanel>
+                </Button>
+                <Button  Width="135" Height="Auto" Grid.Row="1" Grid.Column="1" Margin="10,5,0,5" HorizontalAlignment="Left" 
+                             Command="{Binding CerrarDialog}" Style="{StaticResource MaterialDesignFlatButtonDanger}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Cancel" Margin="0,0,10,0"/>
+                        <TextBlock Text="Cancelar"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,43 @@
+﻿<Application x:Class="Capa_Presentacion_WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF"
+             StartupUri="Windowprueba.xaml">
+    <Application.Resources>
+        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DatePicker.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepOrange.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />-->
+                <ResourceDictionary>
+                    <!--primary-->
+                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#FFFFFFFF"/>
+                    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FF37474F"/>
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FFFFFFFF"/>
+                    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FF37474F"/>
+                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#FFFFFFFF"/>
+                    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FF37474F"/>
+                    <!--accent-->
+                    <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#FF304FFE"/>
+                    <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#FFCFD8DC"/>
+                    <SolidColorBrush x:Key="MaterialDesignPaper" Color="#f9fafb" />
+                    <SolidColorBrush x:Key="MaterialDesignTextBoxBorder" Color="#92969a"/>
+                    <!--<SolidColorBrush x:Key="MaterialDesignCheckBox" Color="#F74D24"/>-->
+
+                </ResourceDictionary>
+                <ResourceDictionary Source="Resources/Overrides/TextBox.xaml" />
+                <ResourceDictionary Source="Resources/Overrides/ComboBox.xaml" />
+                <ResourceDictionary Source="Resources/Overrides/DatePicker.xaml" />
+                <ResourceDictionary Source="Resources/Overrides/Button.xaml" />
+                <ResourceDictionary Source="Resources/Overrides/PasswordBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+    </Application.Resources>
+</Application>

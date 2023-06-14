@@ -1,0 +1,267 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.ViewModels.Reporte.Pedidos.ReporteCierreCaja"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.ViewModels.Reporte.Pedidos"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             
+             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             d:DesignHeight="700" d:DesignWidth="800">
+    <UserControl.Resources>
+
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <!--<Setter TargetName="ScrollBarRectangle" Property="Width" Value="300" />-->
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="20" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="20" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="20" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,376" Grid.RowSpan="2" >
+            <TextBlock Margin="10 10 0 0"  HorizontalAlignment="Center" Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="30">
+                Historial de Cierre
+            </TextBlock>
+            <Label Content="{Binding Operacion}"  HorizontalAlignment="Center" IsEnabled="False" Margin="10 12 0 0" FontSize="20" ></Label>
+        </StackPanel>
+        <ContentControl Grid.Row="1" x:Name="ContentGrid" Grid.RowSpan="2">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+            <Grid Grid.Row="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <!--<Button  Width="130" Height="40" Grid.Row="0" Grid.Column="0" Margin="10,4,0,5" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFlatButtonPrimary}"
+                   Command="{Binding NuevoCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Register" Margin="0,0,10,0"/>
+                        <TextBlock Text="Nuevo"/>
+                    </StackPanel>
+                </Button>-->
+                <DockPanel Grid.Row="0">
+                    <!--<ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Visible">-->
+
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" UniformCornerRadius="15" Height="70" Grid.Column="1">
+                            <StackPanel Grid.Column="1" >
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton  x:Name="rbtDia" Background="#037DBA" Tag="{Binding rbbtdia}" Command="{Binding RbtTagCommand}" CommandParameter="{Binding rbbtdia}"  IsChecked="False" Margin="10,0,0,8">
+                                        Día
+                                    </RadioButton>
+                                    <!--<RadioButton  x:Name="rbtMes" Background="#037DBA" Tag="{Binding rbbtmes}" Command="{Binding RbtTagCommand}" CommandParameter="{Binding rbbtmes}"  IsChecked="False"  Margin="125,0,0,8">
+                                    Mes
+                                </RadioButton>-->
+                                    <RadioButton  x:Name="rbtdesdeHastas" Background="#037DBA" Tag="{Binding rbbtdesdehasta}" Command="{Binding RbtTagCommand}" CommandParameter="{Binding rbbtdesdehasta}"  IsChecked="False" Margin="125,0,0,8">
+                                        Entre fechas
+                                    </RadioButton>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0.17,0">
+                                    <DatePicker Margin="10 0 0 0" SelectedDateFormat="Short" VerticalAlignment="Center" IsEnabled="{Binding Path=IsChecked, ElementName=rbtDia}" Language="ES" Height="34" Width="150" SelectedDate="{Binding NombreDia}" Style="{StaticResource MaterialDesignOutlinedTextFieldDatePicker}" FontSize="15" materialDesign:HintAssist.Hint="{Binding DpVentas.dia}" >
+
+                                    </DatePicker>
+                                    <!--<TextBlock Text=" - " FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="18"/>-->
+                                    <!--<DatePicker VerticalAlignment="Center" Language="ES" IsEnabled="{Binding Path=IsChecked, ElementName=rbtMes}"  Height="34" Width="150" SelectedDate="{Binding DpVentas.mes, StringFormat='yyyy-MM'}"  Style="{StaticResource MaterialDesignOutlinedTextFieldDatePicker}" FontSize="15" materialDesign:HintAssist.Hint="{Binding DpVentas.mes}"  />-->
+                                    <TextBlock Text=" - " FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="18"/>
+
+                                    <DatePicker VerticalAlignment="Center" Language="ES" IsEnabled="{Binding Path=IsChecked, ElementName=rbtdesdeHastas}"  Height="34" Width="140" SelectedDate="{Binding DpVentas.desde}"  Style="{StaticResource MaterialDesignOutlinedTextFieldDatePicker}" FontSize="15" materialDesign:HintAssist.Hint="{Binding DpVentas.desde}"  />
+                                    <TextBlock Text=" - " FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="18"/>
+                                    <DatePicker VerticalAlignment="Center" Language="ES" IsEnabled="{Binding Path=IsChecked, ElementName=rbtdesdeHastas}"  Height="34" Width="140" SelectedDate="{Binding DpVentas.hasta}"  Style="{StaticResource MaterialDesignOutlinedTextFieldDatePicker}" FontSize="15" materialDesign:HintAssist.Hint="{Binding DpVentas.hasta}"  />
+                                    <Button materialDesign:ButtonAssist.CornerRadius="3"  Margin="12,0,10,0" 
+                                        Style="{StaticResource MaterialDesignFlatDarkBgButton}" ToolTip="MaterialDesignFlatDarkButton" Width="auto" 
+                                        Background="SkyBlue" Command="{Binding BuscarporfechasCommand}"  >
+                                        <materialDesign:PackIcon Kind="Magnify" Foreground="White" />
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        
+                    </Grid>
+
+
+                    <!--</ScrollViewer>-->
+                </DockPanel>
+                
+                <Grid Grid.Row="1" Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="auto" MaxWidth="360"/>
+                        <ColumnDefinition Width="40"/>
+                        <!--<ColumnDefinition Width="300"/>-->
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock  Grid.Row="0" Grid.Column="1" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"  
+                                Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="15" Margin="0,0,0,0" Grid.RowSpan="2">                        
+                        <materialDesign:Chip Height="30" Background="#ff8f00">
+                             LISTA DE CIERRES
+                        </materialDesign:Chip>
+                    </TextBlock>
+
+                    <DockPanel Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Stretch">
+
+                        <DataGrid  Width="auto" HorizontalAlignment="Stretch" Grid.Row="1"  AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding cierres}">
+                            
+                            <DataGrid.Columns>
+                                <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding ID}" FontSize="15"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Monto Efectivo" Binding="{Binding DC_MONTO_EFECTIVO}" FontSize="15"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Monto Tarjeta" Binding="{Binding DC_MONTO_TARJETA}" FontSize="15"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Monto Total" Binding="{Binding DC_MONTO_TOTAL}" FontSize="15"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Fecha" Binding="{Binding DC_F_CREATE}" FontSize="15"/>
+                                <DataGridTemplateColumn Header="Reenvio">
+                                    <DataGridTemplateColumn.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                        </Style>
+                                    </DataGridTemplateColumn.CellStyle>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Foreground="#266EDC" Command="{Binding Path=DataContext.EnviarCommand,
+                                                RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }"
+                                                CommandParameter="{Binding ID}"
+                                                Content="{materialDesign:PackIcon Kind=FileDocumentEdit}" ToolTip="Enviar" Padding="0" Height="25" Width="30" Margin="0,0,5,0" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Re imprimir">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Foreground="Green" 
+                                                        Command="{Binding Path=DataContext.ReimprimirCommand, 
+                                                RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }"
+                                                CommandParameter="{Binding ID}"
+                                                Content="{materialDesign:PackIcon Kind=PrinterSettings}" ToolTip="Re imprimir" Padding="0"
+                                                        Height="25" Width="30" Margin="0,0,5,0" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!--<DataGridTextColumn IsReadOnly="True" Header="Precio total" Binding="{Binding total_ped}" FontSize="15"/>
+                                <DataGridTemplateColumn IsReadOnly="True" Header="F. Pedido" MaxWidth="100">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Padding="2" TextWrapping="Wrap" 
+                                                           Text="{Binding f_ped}" FontSize="15"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn IsReadOnly="True" Header="Estado Financiero" Binding="{Binding nom_estado_f}" FontSize="15"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Importe" Binding="{Binding impor_ped}" FontSize="15"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Tipo Descuento" Binding="{Binding nom_tip_desc}" FontSize="15"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Forma de pago" Binding="{Binding nom_fpago}" FontSize="15"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Mozo" Binding="{Binding nom_emple}" FontSize="15"/>
+                                <DataGridTextColumn IsReadOnly="True" Header="Usuario" Binding="{Binding nom_usu}" FontSize="15"/>-->
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </DockPanel>
+                    
+                </Grid>
+
+                
+            </Grid>
+        </ContentControl>
+    </Grid>
+</UserControl>

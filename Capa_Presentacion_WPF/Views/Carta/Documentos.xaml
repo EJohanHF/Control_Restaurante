@@ -1,0 +1,295 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Carta.Documentos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Carta"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <!--<Setter TargetName="ScrollBarRectangle" Property="Width" Value="300" />-->
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="20" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="20" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="20" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.01*"/>
+            <RowDefinition Height="0.98*"/>
+            <RowDefinition Height="0.01*"/>
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="1" x:Name="ContentGrid" VerticalAlignment="Stretch">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="20" 
+                                 MinWidth="400" Background="White" VerticalAlignment="Center" 
+                                 MaxWidth="1100"  UniformCornerRadius="15">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="0.2*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="10 10 0 0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="0"
+                                   Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="23">
+                            Mantenimiento de Documentos
+                        </TextBlock>
+                        <materialDesign:Chip Grid.Column="2" HorizontalAlignment="Right" FontSize="20" Grid.Row="0"
+                                             Content="{Binding Operacion}" Cursor="Arrow" Background="#25A1FC" Foreground="White"/>
+
+                        <!--<Button  Width="130" Height="40" Grid.Row="1" Margin="10,0,0,0" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFlatButtonPrimary}"
+                       Command="{Binding NuevoCommand}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Register" Margin="0,0,10,0"/>
+                                <TextBlock Text="Nuevo"/>
+                            </StackPanel>
+                        </Button>-->
+                        <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center">
+                            <Label Content="Buscar" HorizontalAlignment="Left" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Grid.Row="2"  FontSize="20" Background="White" Margin="5" Text="{Binding TextoBuscar, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" MaxWidth="500"
+                                     Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" HorizontalContentAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding BuscarCommand}"/>
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <Button Style="{DynamicResource MaterialDesignToolButton}" Command="{Binding BuscarCommand}" 
+                                            HorizontalAlignment="Stretch" ToolTip="Buscar">
+                                    <materialDesign:PackIcon Kind="Magnify" Opacity=".56" Width="20" Height="20" Foreground="#29b6f6" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <DataGrid Grid.Row="2" Margin="10,2,10,10" Height="300" Width="auto" 
+                                  HorizontalAlignment="Center" AutoGenerateColumns="False" IsReadOnly="True"
+                                  CanUserAddRows="False" CanUserDeleteRows="False" 
+                                  ItemsSource="{Binding DataDocumentos}" Background="White">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Acciones">
+                                    <DataGridTemplateColumn.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                        </Style>
+                                    </DataGridTemplateColumn.CellStyle>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button x:Name="btneditar" Style="{StaticResource MaterialDesignOutlinedButton}" 
+                                                        Foreground="#266EDC" Command="{Binding Path=DataContext.EditarCommand,
+                                                    RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}} }"
+                                                    CommandParameter="{Binding ID}"
+                                                    Content="{materialDesign:PackIcon Kind=FileDocumentEdit}" ToolTip="Editar"
+                                                        Padding="0" Height="25" Width="30" Margin="0,0,5,0" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" FontSize="15"/>
+                                <DataGridTemplateColumn Header="DOCUMENTO">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding DOC_NOM}" FontSize="15" MaxWidth="120"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="ESTADO">
+                                    <DataGridTemplateColumn.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                        </Style>
+                                    </DataGridTemplateColumn.CellStyle>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <CheckBox IsEnabled="False" Style="{StaticResource MaterialDesignCheckBox}"  
+                                                          IsChecked="{Binding DOC_ACT}" Padding="0" Height="25" Width="30" 
+                                                          Margin="0,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </ScrollViewer>
+            </materialDesign:Card>
+        </ContentControl>
+        <ScrollViewer Grid.Row="1" x:Name="ContentRegistro" Grid.RowSpan="2">
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Editar">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Nuevo">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ScrollViewer.Style>
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="10" 
+                                 MinWidth="500" MinHeight="300" Background="White" VerticalAlignment="Center" 
+                                 MaxWidth="900"  UniformCornerRadius="15" Margin="0,10,0,10">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="0.2*"/>
+                            <RowDefinition Height="0.7*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="10 10 0 0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="0"
+                                   Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="20">
+                            Mantenimiento de Documento
+                        </TextBlock>
+                        <materialDesign:Chip Grid.Column="2" HorizontalAlignment="Right" FontSize="20" Grid.Row="0"
+                                             Content="{Binding Operacion}" Cursor="Arrow" Background="#25A1FC" Foreground="White"/>
+
+                        <Grid Grid.Row="1" Margin="10,0,15,0" Height="60">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" MinWidth="140"/>
+                                <ColumnDefinition Width="auto" MinWidth="140"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btGuardar" Width="135" Height="Auto" Grid.Row="0" Grid.Column="0" Margin="10,5,0,5" HorizontalAlignment="Left" 
+                                 Command="{Binding GuardarCommand}" Style="{StaticResource MaterialDesignFlatButtonSuccess}" Grid.ColumnSpan="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Guardar"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  Width="130" Height="Auto" Grid.Row="0" Grid.Column="1" Margin="10,5,0,5" HorizontalAlignment="Left" 
+                                 Command="{Binding CancelarCommand}" Style="{StaticResource MaterialDesignFlatButtonDanger}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Cancel" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Cancelar"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="0" Width="auto" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.2*"/>
+                                <RowDefinition Height="0.8*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.1*"/>
+                                <ColumnDefinition Width="0.8*"/>
+                                <ColumnDefinition Width="0.1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontSize="15">Impresora:</Label>
+
+                            <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalScrollBarVisibility="Visible">
+                                <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" >
+                                    <ItemsControl  ItemsSource="{Binding checkItems}" Grid.Row="9" Height="50" Grid.ColumnSpan="3" Margin="0,0,10,0" Grid.Column="1" >
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate >
+                                                <CheckBox x:Name="cboimpresoras" Style="{StaticResource MaterialDesignCheckBox}" 
+                                                          Tag="{Binding idchek}" Content="{Binding nomchek}"  Grid.Row="9" Grid.Column="1" 
+                                                          IsChecked="{Binding value}" Background="Orange" HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Stretch" Width="auto" Margin="6,0,6,0"  FontSize="15" ToolTip="{Binding nomchek}"
+                                                          Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}},
+                                                    Path=DataContext.TraercheckImpreCommand}" CommandParameter="{Binding idchek}"/>
+
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </materialDesign:Card>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,1060 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props" Condition="Exists('..\packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C0E971F2-C018-4DA5-A19F-1F4D4FE56D67}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Capa_Presentacion_WPF</RootNamespace>
+    <AssemblyName>Capa_Presentacion_WPF</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo_restaurant.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connected Services\ServiceReference1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Commands\ParamCommand.cs" />
+    <Compile Include="Core\Commands\RelayCommand.cs" />
+    <Compile Include="Core\iEnlace.cs" />
+    <Compile Include="Core\iGeneric.cs" />
+    <Compile Include="Core\Messenger.cs" />
+    <Compile Include="Core\RadioClass.cs" />
+    <Compile Include="Funciones Globales\Funciones_Globales.cs" />
+    <Compile Include="RawPrinterHelper.cs" />
+    <Compile Include="Teclado.xaml.cs">
+      <DependentUpon>Teclado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\Procesos_FE.cs" />
+    <Compile Include="ViewModels\Ambientes\AmbientesItemViewModel.cs" />
+    <Compile Include="ViewModels\Ambientes\AmbientesStructure.cs" />
+    <Compile Include="ViewModels\Ambientes\MesasItemViewModel.cs" />
+    <Compile Include="ViewModels\Ambientes\MesasStructure.cs" />
+    <Compile Include="ViewModels\Ambientes\MesasViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Ambientes\AmbientesViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Ambientes\MesasViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\CajaChica\CajaViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\CajaChica\TipoCajaViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Cargo\RolCargoViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\CategoriaViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\DescripcionesViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\DetDescripcionesViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\DocumentosViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\GrupoViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\ImpresoraViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\ItemsViewModel\CategoriaCartaItemViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\ItemsViewModel\GrupoCartaItemViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\ItemsViewModel\PlatosItemViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\ItemsViewModel\PlatosStructure.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\ItemsViewModel\SuperCategoriaItemViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\PlatosViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Carta\SuperCategoriaViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Centro Costos\CentroCostosStructure.cs" />
+    <Compile Include="ViewModels\Configuracion\Centro Costos\CentroCostosViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Centro Costos\PuntoEquilibrioViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Centro Costos\RptCalculoCostoProduccionAnualViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Centro Costos\RptPrecioCostoPlatoViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Centro Costos\TipoCostosViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Clientes\ClienteViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Corporacion\CorporacionViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Descuento\DescuentoViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Empresa\EmpresaViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Factura Compra\FactCompraStructure.cs" />
+    <Compile Include="ViewModels\Configuracion\Factura Compra\FactCompraViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Jesus\SuperJesusViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\MantenimientoApp\MantenimientoAppSosDeliveryEntregaViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\MantenimientoApp\MantenimientoAppSosDeliveryViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Mensaje\MensajeViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Niveles\ICollectionView.cs" />
+    <Compile Include="ViewModels\Configuracion\Niveles\NivelStructure.cs" />
+    <Compile Include="ViewModels\Configuracion\Niveles\NivelViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Proveeedores\ProveedorViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Receta\RecetaStructure.cs" />
+    <Compile Include="ViewModels\Configuracion\Receta\RecetaViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Receta\SubRecetaStructure.cs" />
+    <Compile Include="ViewModels\Configuracion\Receta\SubRecetaViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Receta\SubRecetaViewModelCorrect.cs" />
+    <Compile Include="ViewModels\Configuracion\Role\RolesViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Stock\AlmacenViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Stock\Consumo Interno\ConsumoInternoStructure.cs" />
+    <Compile Include="ViewModels\Configuracion\Stock\Consumo Interno\ConsumoInternoViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Stock\Consumo Interno\MermasViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Stock\InsumoViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Stock\Insumo_\InsumoItemsViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Stock\Insumo_\InsumosStructure.cs" />
+    <Compile Include="ViewModels\Configuracion\Stock\Reporte\MovimientoAlmacenViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Stock\UnidadMedidaViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Transaccion\ParametrosViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Transaccion\RptImpuestosViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\Transaccion\TransaccionesViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\User\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Configuracion\User\UsuarioViewModel.cs" />
+    <Compile Include="ViewModels\Cuentas\DividirCuentasViewModel.cs" />
+    <Compile Include="ViewModels\DeliveryWebService\DeliveryWebServiceViewModel.cs" />
+    <Compile Include="ViewModels\DeliveryWebService\DialogCodigoMotorizadoViewModel.cs" />
+    <Compile Include="ViewModels\DeliveryWebService\MesaWebServiceViewModel.cs" />
+    <Compile Include="ViewModels\DeliveryWebService\RecojoWebServiceViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogAnulacionxTokenViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogCambiarCantidadViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogCambiarMesaViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogCambiarPrecioViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogCartaDeliveryViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogClaveEmpleadoViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogClienteViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogComboCantidadViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogComboMesaViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogDescripcionesViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogDetallePagosViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogDetalleProdAnuladosViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogDetalleVentaAnuladosViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogDetPedidoDeliveryViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogEmpresaDeliveryViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogEntregaDeliveryViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogFactCompraDet.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogFactCompraDetTotal.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogMesaDeliveryViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogMotorizadoViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogNomPerViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogPagarViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogPagoClienteViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogPagoDeliveryViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogPrecioViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogRecojoDeliveryViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DialogTelPerViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\Facturacion Electronica\DialogFacturacionElectronicaViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\Facturacion Electronica\DialogNroPersonasViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\MessageBoxDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewModels\Dialogs\MessageBoxDialog.Designer.cs">
+      <DependentUpon>MessageBoxDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Dialogs\MessageDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\NivelCartaDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\NivelGrupoDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\NivelViewModel_.cs" />
+    <Compile Include="ViewModels\MisPedidos\DespachoMesasViewModel.cs" />
+    <Compile Include="ViewModels\MisPedidos\MisPedidosViewModel.cs" />
+    <Compile Include="ViewModels\MisPedidos\RptMisPedidosViewModel.cs" />
+    <Compile Include="ViewModels\Principal\MenuItemViewModelTotal.cs" />
+    <Compile Include="ViewModels\Principal\MenuStructureTotal.cs" />
+    <Compile Include="ViewModels\Reporte\Excel\CreateExcelFile.cs" />
+    <Compile Include="ViewModels\Reporte\Kardex\KardeStructure.cs" />
+    <Compile Include="ViewModels\Reporte\Kardex\KardexStructure.cs" />
+    <Compile Include="ViewModels\Reporte\Kardex\KardexViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\HistorialCajaChicaViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\HistorialDescuentoViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\HistorialdeVentasViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\HistorialPlatosVxImpresoraViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\HistorialVentasMozoViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\InformeVentasViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\PdAnuladosViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\RecurrenciaClientesViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\ReporteCierreCajaViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\RptVentasxCanalViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Pedidos\Rpt_AdelantoViewModel.cs" />
+    <Compile Include="Views\Carta\Documentos.xaml.cs">
+      <DependentUpon>Documentos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\MantenimientoAppSosDelivery.xaml.cs">
+      <DependentUpon>MantenimientoAppSosDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\MantenimientoAppSosDeliveryEntrega.xaml.cs">
+      <DependentUpon>MantenimientoAppSosDeliveryEntrega.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consumo Interno\Mermas.xaml.cs">
+      <DependentUpon>Mermas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Cuentas\DividirCuentas.xaml.cs">
+      <DependentUpon>DividirCuentas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Delivery Web Service\MesaWebService.xaml.cs">
+      <DependentUpon>MesaWebService.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Delivery Web Service\RecojoWebService.xaml.cs">
+      <DependentUpon>RecojoWebService.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogAnularToken.xaml.cs">
+      <DependentUpon>DialogAnularToken.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogCodigoMotorizado.xaml.cs">
+      <DependentUpon>DialogCodigoMotorizado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogDetFactCompra.xaml.cs">
+      <DependentUpon>DialogDetFactCompra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogDetFactCompraTotal.xaml.cs">
+      <DependentUpon>DialogDetFactCompraTotal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogEditarEntrega.xaml.cs">
+      <DependentUpon>DialogEditarEntrega.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogEditar.xaml.cs">
+      <DependentUpon>DialogEditar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogPagoCliente.xaml.cs">
+      <DependentUpon>DialogPagoCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogRecojoDelivery.xaml.cs">
+      <DependentUpon>DialogRecojoDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\EmpresaDefault\DialogEmpresaDelivery.xaml.cs">
+      <DependentUpon>DialogEmpresaDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogMotorizado.xaml.cs">
+      <DependentUpon>DialogMotorizado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogNomPersona.xaml.cs">
+      <DependentUpon>DialogNomPersona.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogTelPersona.xaml.cs">
+      <DependentUpon>DialogTelPersona.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MisPedidos\DespachoMesas.xaml.cs">
+      <DependentUpon>DespachoMesas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MisPedidos\MisPedidos.xaml.cs">
+      <DependentUpon>MisPedidos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MisPedidos\Rpt_Pedidos.xaml.cs">
+      <DependentUpon>Rpt_Pedidos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\InformeVentas.xaml.cs">
+      <DependentUpon>InformeVentas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\ReporteCierreCaja.xaml.cs">
+      <DependentUpon>ReporteCierreCaja.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Reporte\PlatoVendidos\PlatoMasVendidoViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\PlatoVendidos\PlatosMasVendidosStructure.cs" />
+    <Compile Include="ViewModels\Reporte\ReporteporDias\AnularViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\ReporteporDias\CierrePacialViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\ReporteporDias\RelayCommand.cs" />
+    <Compile Include="ViewModels\Reporte\ReporteporDias\ReporteFechaViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\ReporteporDias\VentasDiaDetPedViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\ReporteporDias\VentasDiaViewModel.cs" />
+    <Compile Include="ViewModels\Reporte\Report_BoletayFactura\BoletaFacturaStructure.cs" />
+    <Compile Include="ViewModels\Reporte\Report_BoletayFactura\VM_Rpt_BoletayFactura.cs" />
+    <Compile Include="ViewModels\Reservas\ReservasStructure.cs" />
+    <Compile Include="ViewModels\Reservas\ReservasViewModel.cs" />
+    <Compile Include="ViewModels\Reservas\RptReservasViewModel.cs" />
+    <Compile Include="Views\Ambientes\Mesas.xaml.cs">
+      <DependentUpon>Mesas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ambientes\RegistrarPedido.xaml.cs">
+      <DependentUpon>RegistrarPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Carta\Categoria_Carta.xaml.cs">
+      <DependentUpon>Categoria_Carta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Carta\Descripciones.xaml.cs">
+      <DependentUpon>Descripciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Carta\DetDescripciones.xaml.cs">
+      <DependentUpon>DetDescripciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Carta\Grupo_Carta.xaml.cs">
+      <DependentUpon>Grupo_Carta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Carta\Impresora_Carta.xaml.cs">
+      <DependentUpon>Impresora_Carta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Carta\Platos_Carta.xaml.cs">
+      <DependentUpon>Platos_Carta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Carta\Super_Categoria.xaml.cs">
+      <DependentUpon>Super_Categoria.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Centro Costos\CostosFijos.xaml.cs">
+      <DependentUpon>CostosFijos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Centro Costos\CostosVariables.xaml.cs">
+      <DependentUpon>CostosVariables.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Centro Costos\PuntoEquilibrio.xaml.cs">
+      <DependentUpon>PuntoEquilibrio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Centro Costos\ReporteGeneral.xaml.cs">
+      <DependentUpon>ReporteGeneral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Centro Costos\RptCalculoCostoProduccionAnual.xaml.cs">
+      <DependentUpon>RptCalculoCostoProduccionAnual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Centro Costos\RptPrecioCostoPlato.xaml.cs">
+      <DependentUpon>RptPrecioCostoPlato.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Centro Costos\RptPrecioVentaPlato.xaml.cs">
+      <DependentUpon>RptPrecioVentaPlato.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Centro Costos\TiposCostos.xaml.cs">
+      <DependentUpon>TiposCostos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Ambientes.xaml.cs">
+      <DependentUpon>Ambientes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Caja.xaml.cs">
+      <DependentUpon>Caja.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Cliente.xaml.cs">
+      <DependentUpon>Cliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Corporacion.xaml.cs">
+      <DependentUpon>Corporacion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Descuento.xaml.cs">
+      <DependentUpon>Descuento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Mesas.xaml.cs">
+      <DependentUpon>Mesas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Nivel.xaml.cs">
+      <DependentUpon>Nivel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Proveedor.xaml.cs">
+      <DependentUpon>Proveedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Roles.xaml.cs">
+      <DependentUpon>Roles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Rol_Cargo.xaml.cs">
+      <DependentUpon>Rol_Cargo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Super_Jesus.xaml.cs">
+      <DependentUpon>Super_Jesus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\TipoCaja.xaml.cs">
+      <DependentUpon>TipoCaja.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Consumo Interno\ConsumoInterno.xaml.cs">
+      <DependentUpon>ConsumoInterno.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Delivery Web Service\DeliveryWebService.xaml.cs">
+      <DependentUpon>DeliveryWebService.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\AlmacenDefault\DialogAlmacenDefault.xaml.cs">
+      <DependentUpon>DialogAlmacenDefault.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Correos\DialogListaCorreo.xaml.cs">
+      <DependentUpon>DialogListaCorreo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogCartaDelivery.xaml.cs">
+      <DependentUpon>DialogCartaDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogDetPedidoDelivery.xaml.cs">
+      <DependentUpon>DialogDetPedidoDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogEditPass.xaml.cs">
+      <DependentUpon>DialogEditPass.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogMesaDelivery.xaml.cs">
+      <DependentUpon>DialogMesaDelivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogMesaReservada.xaml.cs">
+      <DependentUpon>DialogMesaReservada.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogNuevoNivel.xaml.cs">
+      <DependentUpon>DialogNuevoNivel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogVentaporDia\DialogAnularPedido.xaml.cs">
+      <DependentUpon>DialogAnularPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogVentaporDia\DialogAnularPlato.xaml.cs">
+      <DependentUpon>DialogAnularPlato.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogVentaporDia\DialogBoleta_Factura.xaml.cs">
+      <DependentUpon>DialogBoleta_Factura.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogVentaporDia\DialogDetPagos.xaml.cs">
+      <DependentUpon>DialogDetPagos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogVentaporDia\DialogDetPedido.xaml.cs">
+      <DependentUpon>DialogDetPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogVentaporDia\DialogDetProdAnulados.xaml.cs">
+      <DependentUpon>DialogDetProdAnulados.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogVentaporDia\DialogDetVentasAnulados.xaml.cs">
+      <DependentUpon>DialogDetVentasAnulados.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogVentaporDia\DialogFactura.xaml.cs">
+      <DependentUpon>DialogFactura.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogVentaporDia\DialogPago.xaml.cs">
+      <DependentUpon>DialogPago.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogVentaporDia\DialogReporteFecha.xaml.cs">
+      <DependentUpon>DialogReporteFecha.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogXstore.xaml.cs">
+      <DependentUpon>DialogXstore.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\EmpresaDefault\DialogEmpresaDefault.xaml.cs">
+      <DependentUpon>DialogEmpresaDefault.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Facturacion Electronica\DialogFacturacionElectronica.xaml.cs">
+      <DependentUpon>DialogFacturacionElectronica.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\MessageDialog.xaml.cs">
+      <DependentUpon>MessageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TecladoNumerico.xaml.cs">
+      <DependentUpon>TecladoNumerico.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ucPrueba1.xaml.cs">
+      <DependentUpon>ucPrueba1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucPrueba02.xaml.cs">
+      <DependentUpon>ucPrueba02.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucPrueba03.xaml.cs">
+      <DependentUpon>ucPrueba03.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\Dialog.cs" />
+    <Compile Include="ViewModels\Configuracion\Empleados\EmpleadosViewModel.cs" />
+    <Compile Include="ViewModels\Principal\MenuItemViewModel.cs" />
+    <Compile Include="ViewModels\Principal\MenuStructure.cs" />
+    <Compile Include="ViewModels\Principal\MenuStructureViewModel.cs" />
+    <Compile Include="Views\Configuracion\Empleados.xaml.cs">
+      <DependentUpon>Empleados.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configuracion\Empresa.xaml.cs">
+      <DependentUpon>Empresa.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\NivelCartaDialog.xaml.cs">
+      <DependentUpon>NivelCartaDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\NivelDialog.xaml.cs">
+      <DependentUpon>NivelDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\NivelGrupoDialog.xaml.cs">
+      <DependentUpon>NivelGrupoDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogCambiarCantidad.xaml.cs">
+      <DependentUpon>DialogCambiarCantidad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogCambiarMesa.xaml.cs">
+      <DependentUpon>DialogCambiarMesa.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogCambiarPrecio.xaml.cs">
+      <DependentUpon>DialogCambiarPrecio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogClaveEmpleado.xaml.cs">
+      <DependentUpon>DialogClaveEmpleado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogCliente.xaml.cs">
+      <DependentUpon>DialogCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogComboCantidad.xaml.cs">
+      <DependentUpon>DialogComboCantidad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogComboMesa.xaml.cs">
+      <DependentUpon>DialogComboMesa.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogNroPersonas.xaml.cs">
+      <DependentUpon>DialogNroPersonas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogPrecio.xaml.cs">
+      <DependentUpon>DialogPrecio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Pedidos\DialogUnificarMesa.xaml.cs">
+      <DependentUpon>DialogUnificarMesa.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\SiNoMessageDialog.xaml.cs">
+      <DependentUpon>SiNoMessageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Factura Compra\Fact_Compra.xaml.cs">
+      <DependentUpon>Fact_Compra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Mensaje\Mensaje.xaml.cs">
+      <DependentUpon>Mensaje.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PersonaViewer.xaml.cs">
+      <DependentUpon>PersonaViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Receta\Receta.xaml.cs">
+      <DependentUpon>Receta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Receta\SubReceta.xaml.cs">
+      <DependentUpon>SubReceta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Kardex\RptKardex.xaml.cs">
+      <DependentUpon>RptKardex.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Kardex\RptKardexGeneral.xaml.cs">
+      <DependentUpon>RptKardexGeneral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\HistorialCajaChica.xaml.cs">
+      <DependentUpon>HistorialCajaChica.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\HistorialDescuento.xaml.cs">
+      <DependentUpon>HistorialDescuento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\HistorialdeVentas.xaml.cs">
+      <DependentUpon>HistorialdeVentas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\HistorialPlatosVendidosxImpresora.xaml.cs">
+      <DependentUpon>HistorialPlatosVendidosxImpresora.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\HistorialVentaMozo.xaml.cs">
+      <DependentUpon>HistorialVentaMozo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\RptAnulaciones.xaml.cs">
+      <DependentUpon>RptAnulaciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\RptRecurrenciaClientes.xaml.cs">
+      <DependentUpon>RptRecurrenciaClientes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\RptVentasxCanal.xaml.cs">
+      <DependentUpon>RptVentasxCanal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Pedidos\Rpt_Adelanto.xaml.cs">
+      <DependentUpon>Rpt_Adelanto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\PlatoMasVendido\RptPlatoMasVendido.xaml.cs">
+      <DependentUpon>RptPlatoMasVendido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Report_BoletayFactura\RptBoletayFactura.xaml.cs">
+      <DependentUpon>RptBoletayFactura.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\VentasdelDia\VentasDia.xaml.cs">
+      <DependentUpon>VentasDia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Stock\Almacen.xaml.cs">
+      <DependentUpon>Almacen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Stock\Helper\Converters.cs" />
+    <Compile Include="Views\Stock\Insumos.xaml.cs">
+      <DependentUpon>Insumos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Stock\Mermas.xaml.cs">
+      <DependentUpon>Mermas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Stock\MovimientoAlmacen.xaml.cs">
+      <DependentUpon>MovimientoAlmacen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Stock\Reportes\ReporteInsumoAlmacen.xaml.cs">
+      <DependentUpon>ReporteInsumoAlmacen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Stock\UnidadMedida.xaml.cs">
+      <DependentUpon>UnidadMedida.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transacciones\RptImpuestos.xaml.cs">
+      <DependentUpon>RptImpuestos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transacciones\Rpt_Parametros.xaml.cs">
+      <DependentUpon>Rpt_Parametros.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Transacciones\Transacciones.xaml.cs">
+      <DependentUpon>Transacciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\Usuario_Food.xaml.cs">
+      <DependentUpon>Usuario_Food.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewsReservas\IngresarReservasView.xaml.cs">
+      <DependentUpon>IngresarReservasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewsReservas\RptReservas.xaml.cs">
+      <DependentUpon>RptReservas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windowprueba.xaml.cs">
+      <DependentUpon>Windowprueba.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewModels\Dialogs\MessageBoxDialog.resx">
+      <DependentUpon>MessageBoxDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Connected Services\ServiceReference1\Capa_Presentacion_WPF.ServiceReference1.ClsClienteConsultaEN.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\sosfood.wsdl" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Capa_Datos\Capa_Datos.csproj">
+      <Project>{B2D1C2BC-D99B-4C96-87BE-D6111B979603}</Project>
+      <Name>Capa_Datos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Capa_Entidades\Capa_Entidades.csproj">
+      <Project>{5c54cff1-d8cb-49b8-90c7-a940583aa129}</Project>
+      <Name>Capa_Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Capa_Negocio\Capa_Negocio.csproj">
+      <Project>{353869af-8df0-468b-9518-feb7d520b695}</Project>
+      <Name>Capa_Negocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Notifications.Wpf.Caliburn.Micro.Sample\Notifications.Wpf.Caliburn.Micro.Sample.csproj">
+      <Project>{88a812ac-2aa7-4ec9-a4b5-b32e37afd4b1}</Project>
+      <Name>Notifications.Wpf.Caliburn.Micro.Sample</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Notifications.Wpf.Sample\Notifications.Wpf.Sample.csproj">
+      <Project>{a5c53f98-245c-4385-8950-42c4545c9ccd}</Project>
+      <Name>Notifications.Wpf.Sample</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Notifications.Wpf\Notifications.Wpf.csproj">
+      <Project>{5c9a4f46-263d-4c23-b361-f09e14bb109e}</Project>
+      <Name>Notifications.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tickets\tickets.csproj">
+      <Project>{a5ff1fd1-6b81-4e6c-b178-149be598b44c}</Project>
+      <Name>tickets</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\sosfood.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CrystalReportReport\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\sonido.mp3" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.5.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.5.1\build\Fody.targets'))" />
+  </Target>
+  <Import Project="..\packages\Fody.6.5.1\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.1\build\Fody.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\WMPLib.1.0.0\lib\AxInterop.WMPLib.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\BCrypt.Net.0.1.0\lib\net35\BCrypt.Net.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\bin\Debug\Caliburn.Micro.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Datos\bin\Debug\Capa_Datos.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Entidades\bin\Debug\Capa_Entidades.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Negocio\bin\Debug\Capa_Negocio.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\DocumentFormat.OpenXml.2.10.0\lib\net46\DocumentFormat.OpenXml.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\WMPLib.1.0.0\lib\Interop.WMPLib.dll">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </ReferencePath>
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\MaterialDesignColors.1.2.0\lib\net45\MaterialDesignColors.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\MaterialDesignExtensions.2.8.0\lib\net45\MaterialDesignExtensions.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\MaterialDesignThemes.2.6.0\lib\net45\MaterialDesignThemes.Wpf.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Microsoft.CSharp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\mscorlib.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Notifications.Wpf.Caliburn.Micro.Sample\bin\Debug\Notifications.Wpf.Caliburn.Micro.Sample.exe" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Notifications.Wpf\bin\Debug\Notifications.Wpf.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Notifications.Wpf.Sample\bin\Debug\Notifications.Wpf.Sample.exe" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\PresentationCore.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\PresentationFramework.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\PropertyChanged.Fody.2.6.1\lib\net452\PropertyChanged.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\Syncfusion.Compression.Base.17.4.0.40\lib\net46\Syncfusion.Compression.Base.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\Syncfusion.Licensing.17.4.0.40\lib\net46\Syncfusion.Licensing.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\Syncfusion.Pdf.Wpf.17.4.0.40\lib\net46\Syncfusion.Pdf.Base.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Configuration.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Core.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Data.DataSetExtensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Data.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\System.Diagnostics.EventLog.4.7.0\lib\net461\System.Diagnostics.EventLog.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Drawing.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\System.IO.Packaging.4.7.0\lib\net46\System.IO.Packaging.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Management.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Net.Http.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Runtime.Serialization.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.ServiceModel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.ServiceProcess.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\System.ServiceProcess.ServiceController.4.7.0\lib\net461\System.ServiceProcess.ServiceController.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Web.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Windows.Forms.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\bin\Debug\System.Windows.Interactivity.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Xaml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Xml.Linq.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\packages\ThoughtWorks.QRCode.1.1.0\lib\ThoughtWorks.QRCode.dll" />
+    <ReferencePath Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\tickets\bin\Debug\tickets.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\WindowsBase.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Collections.Concurrent.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Collections.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ComponentModel.Annotations.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ComponentModel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ComponentModel.EventBasedAsync.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Diagnostics.Contracts.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Diagnostics.Debug.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Diagnostics.Tools.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Diagnostics.Tracing.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Dynamic.Runtime.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Globalization.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.IO.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Linq.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Linq.Expressions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Linq.Parallel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Linq.Queryable.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Net.NetworkInformation.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Net.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Net.Requests.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Net.WebHeaderCollection.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ObjectModel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Reflection.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Reflection.Emit.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Reflection.Emit.ILGeneration.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Reflection.Emit.Lightweight.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Reflection.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Reflection.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Resources.ResourceManager.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.Handles.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.InteropServices.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.InteropServices.WindowsRuntime.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.Numerics.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.Serialization.Json.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.Serialization.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.Serialization.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Security.Principal.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ServiceModel.Duplex.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ServiceModel.Http.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ServiceModel.NetTcp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ServiceModel.Primitives.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ServiceModel.Security.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Text.Encoding.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Text.Encoding.Extensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Text.RegularExpressions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Threading.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Threading.Tasks.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Threading.Tasks.Parallel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Threading.Timer.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Xml.ReaderWriter.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Xml.XDocument.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Xml.XmlSerializer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Teclado.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Carta\Documentos.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\MantenimientoAppSosDelivery.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\MantenimientoAppSosDeliveryEntrega.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Consumo Interno\Mermas.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Cuentas\DividirCuentas.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Delivery Web Service\MesaWebService.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Delivery Web Service\RecojoWebService.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogAnularToken.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogCodigoMotorizado.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogDetFactCompra.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogDetFactCompraTotal.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogEditarEntrega.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogEditar.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogPagoCliente.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogRecojoDelivery.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\EmpresaDefault\DialogEmpresaDelivery.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogMotorizado.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogNomPersona.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\DialogTelPersona.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\MisPedidos\DespachoMesas.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\MisPedidos\MisPedidos.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\MisPedidos\Rpt_Pedidos.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\InformeVentas.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\ReporteCierreCaja.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Ambientes\Mesas.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Ambientes\RegistrarPedido.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Carta\Categoria_Carta.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Carta\Descripciones.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Carta\DetDescripciones.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Carta\Grupo_Carta.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Carta\Impresora_Carta.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Carta\Platos_Carta.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Carta\Super_Categoria.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Centro Costos\CostosFijos.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Centro Costos\CostosVariables.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Centro Costos\PuntoEquilibrio.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Centro Costos\ReporteGeneral.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Centro Costos\RptCalculoCostoProduccionAnual.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Centro Costos\RptPrecioCostoPlato.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Centro Costos\RptPrecioVentaPlato.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Centro Costos\TiposCostos.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Ambientes.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Caja.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Cliente.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Corporacion.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Descuento.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Mesas.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Nivel.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Proveedor.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Roles.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Rol_Cargo.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Super_Jesus.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\TipoCaja.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Consumo Interno\ConsumoInterno.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Delivery Web Service\DeliveryWebService.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\AlmacenDefault\DialogAlmacenDefault.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Correos\DialogListaCorreo.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogCartaDelivery.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogDetPedidoDelivery.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogEditPass.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogMesaDelivery.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogMesaReservada.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogNuevoNivel.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogVentaporDia\DialogAnularPedido.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogVentaporDia\DialogAnularPlato.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogVentaporDia\DialogBoleta_Factura.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogVentaporDia\DialogDetPagos.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogVentaporDia\DialogDetPedido.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogVentaporDia\DialogDetProdAnulados.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogVentaporDia\DialogDetVentasAnulados.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogVentaporDia\DialogFactura.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogVentaporDia\DialogPago.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogVentaporDia\DialogReporteFecha.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\DialogXstore.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\EmpresaDefault\DialogEmpresaDefault.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Facturacion Electronica\DialogFacturacionElectronica.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\MessageDialog.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\MainWindow.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\TecladoNumerico.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\ucPrueba1.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\UserControls\ucPrueba02.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\UserControls\ucPrueba03.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Empleados.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Configuracion\Empresa.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\NivelCartaDialog.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\NivelDialog.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\NivelGrupoDialog.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogCambiarCantidad.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogCambiarMesa.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogCambiarPrecio.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogClaveEmpleado.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogCliente.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogComboCantidad.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogComboMesa.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogNroPersonas.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogPrecio.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\Pedidos\DialogUnificarMesa.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\SiNoMessageDialog.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Dialogs\UserControl1.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Factura Compra\Fact_Compra.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Mensaje\Mensaje.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\PersonaViewer.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Receta\Receta.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Receta\SubReceta.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Kardex\RptKardex.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Kardex\RptKardexGeneral.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\HistorialCajaChica.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\HistorialDescuento.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\HistorialdeVentas.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\HistorialPlatosVendidosxImpresora.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\HistorialVentaMozo.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\RptAnulaciones.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\RptRecurrenciaClientes.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\RptVentasxCanal.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Pedidos\Rpt_Adelanto.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\PlatoMasVendido\RptPlatoMasVendido.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\Report_BoletayFactura\RptBoletayFactura.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Reportes\VentasdelDia\VentasDia.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Stock\Almacen.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Stock\Insumos.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Stock\Mermas.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Stock\MovimientoAlmacen.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Stock\Reportes\ReporteInsumoAlmacen.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Stock\UnidadMedida.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Transacciones\RptImpuestos.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Transacciones\Rpt_Parametros.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\Transacciones\Transacciones.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\User\Usuario_Food.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\ViewsReservas\IngresarReservasView.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Views\ViewsReservas\RptReservas.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Windowprueba.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\App.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\Capa_Presentacion_WPF_Content.g.cs" />
+    <Compile Include="C:\Users\COMERCIAL\Source\Repos\sostic\sosfood2.1.3\Capa_Presentacion_WPF\obj\Debug\GeneratedInternalTypeHelper.g.cs" />
+  </ItemGroup>
+</Project>

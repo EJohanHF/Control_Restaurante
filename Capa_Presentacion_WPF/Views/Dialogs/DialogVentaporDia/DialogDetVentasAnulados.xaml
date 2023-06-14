@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Dialogs.DialogVentaporDia.DialogDetVentasAnulados"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Dialogs.DialogVentaporDia"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="1" x:Name="ContentGrid" Grid.RowSpan="2">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Lista">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion}" Value="Anular Pedido">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+            <!--<materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5"  Padding="32" MinWidth="400" Background="White" VerticalAlignment="Top" MaxWidth="1000" MaxHeight="800" UniformCornerRadius="15" Margin="0,0,0,0">-->
+            <Grid Grid.Row="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="10"  HorizontalAlignment="Center" 
+                           Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="30">
+                        Mesas Anuladas
+                </TextBlock>
+                <!--<materialDesign:Chip HorizontalAlignment="Right" FontSize="20" Content="Lista" Background="#25A1FC" Foreground="White"/>-->
+
+                <DataGrid x:Name="Datagrid" Width="auto" Background="White" HorizontalAlignment="Center" Grid.Row="1" FontSize="15" Margin="0,10,0,0" VerticalScrollBarVisibility="Auto" Grid.Column="1"
+                        AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding dataDetVentasAnulados}">
+
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding VA_id}" FontSize="15"/>
+                        <DataGridTextColumn Header="MESA" Binding="{Binding VA_desc}" FontSize="15" />
+                        <DataGridTextColumn Header="MONTO" Binding="{Binding VA_monto}" FontSize="15"/>
+                     
+                    </DataGrid.Columns>
+
+                </DataGrid>
+                <Button Style="{StaticResource MaterialDesignFlatButtonSuccess}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        IsDefault="True" Grid.Row="2"
+                                        Margin="0 00 0 0"
+                                        Command="materialDesign:DialogHost.CloseDialogCommand">
+                    <Button.CommandParameter>
+                        <system:Boolean>True</system:Boolean>
+                    </Button.CommandParameter>
+                    ACEPTAR
+                </Button>
+            </Grid>
+
+            <!--</materialDesign:Card>-->
+        </ContentControl>
+    </Grid>
+</UserControl>

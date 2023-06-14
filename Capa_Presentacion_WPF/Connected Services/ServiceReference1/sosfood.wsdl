@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://sos-tic.com/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://sos-tic.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://sos-tic.com/">
+      <s:element name="EnviaCorreoCierre">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dataSet">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="nombre_local" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviaCorreoCierreResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EnviaCorreoCierreResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDNI">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dni" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaDNIResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaDNIResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaRuc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ruc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaRucResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaRucResult" type="tns:ClsClienteConsultaEN" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ClsClienteConsultaEN">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="err" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ultima_actualizacion" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="direccion_completa" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ubigeo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="condicion_de_domicilio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="estado_del_contribuyente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nombre_o_razon_social" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ruc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="EnviaCorreoCierreSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviaCorreoCierre" />
+  </wsdl:message>
+  <wsdl:message name="EnviaCorreoCierreSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviaCorreoCierreResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDNISoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaDNI" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaDNISoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaDNIResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaRucSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaRuc" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaRucSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaRucResponse" />
+  </wsdl:message>
+  <wsdl:portType name="sosfoodSoap">
+    <wsdl:operation name="EnviaCorreoCierre">
+      <wsdl:input message="tns:EnviaCorreoCierreSoapIn" />
+      <wsdl:output message="tns:EnviaCorreoCierreSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDNI">
+      <wsdl:input message="tns:ConsultaDNISoapIn" />
+      <wsdl:output message="tns:ConsultaDNISoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaRuc">
+      <wsdl:input message="tns:ConsultaRucSoapIn" />
+      <wsdl:output message="tns:ConsultaRucSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="sosfoodSoap" type="tns:sosfoodSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EnviaCorreoCierre">
+      <soap:operation soapAction="http://sos-tic.com/EnviaCorreoCierre" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDNI">
+      <soap:operation soapAction="http://sos-tic.com/ConsultaDNI" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaRuc">
+      <soap:operation soapAction="http://sos-tic.com/ConsultaRuc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="sosfoodSoap12" type="tns:sosfoodSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EnviaCorreoCierre">
+      <soap12:operation soapAction="http://sos-tic.com/EnviaCorreoCierre" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDNI">
+      <soap12:operation soapAction="http://sos-tic.com/ConsultaDNI" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaRuc">
+      <soap12:operation soapAction="http://sos-tic.com/ConsultaRuc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="sosfood">
+    <wsdl:port name="sosfoodSoap" binding="tns:sosfoodSoap">
+      <soap:address location="http://sostic.dyndns.org/consultarucydni/sosfood.asmx" />
+    </wsdl:port>
+    <wsdl:port name="sosfoodSoap12" binding="tns:sosfoodSoap12">
+      <soap12:address location="http://sostic.dyndns.org/consultarucydni/sosfood.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

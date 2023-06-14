@@ -1,0 +1,256 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Stock.MovimientoAlmacen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"      
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Capa_Presentacion_WPF.Views.Configuracion"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converter="clr-namespace:Capa_Presentacion_WPF.Views.Stock.Helper"
+             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             d:DesignHeight="800" d:DesignWidth="1500">
+    <!--ESTILO DE SCROLL-->
+    <UserControl.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <!--<Setter TargetName="ScrollBarRectangle" Property="Width" Value="100" />-->
+                                <Setter TargetName="ScrollBarRectangle" Property="Height" Value="7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#B5B5B5" />
+            <!--ff8e1e-->
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="8" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="8" Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}" Style="{StaticResource ScrollThumbs}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto" />
+                                <Setter Property="Height" Value="8" />
+                                <Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <converter:WpConverter x:Key="WpConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <ScrollViewer Grid.Row="0" x:Name="ContentRegistro1" Grid.RowSpan="2">
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operacion_Reporte}" Value="Llenar almacen">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion_Reporte}" Value="Movimiento almacen">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ScrollViewer.Style>
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="20" MinWidth="400" Background="White" 
+                                 VerticalAlignment="Center" MaxWidth="600" UniformCornerRadius="15"  MaxHeight="800">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="10 10 0 0"  HorizontalAlignment="Left" Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="30" Text="Movimientos" />
+                    <materialDesign:Chip HorizontalAlignment="Right" FontSize="20" Content="{Binding Operacion_Reporte}" Background="#25A1FC" Foreground="White"/>
+                    <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Width="auto" Height="50" Grid.Row="0" HorizontalAlignment="Center" 
+                             Command="{Binding BtnLlenarAlmInsCommand}"  >
+                            <StackPanel Orientation="Horizontal" Width="auto">
+                                <materialDesign:PackIcon Kind="NoteAdd" Width="30" Height="30" Foreground="Orange"/>
+                                <TextBlock Text="   Llenar Almacén   " VerticalAlignment="Center" FontSize="18" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="15"  Width="auto" HorizontalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="175"/>
+                            <ColumnDefinition Width="230"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Label VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontSize="15" Margin="0,15,20,16">Almacén:</Label>
+                        <ComboBox  Grid.Row="0" HorizontalAlignment="Left" Grid.Column="1" Width="170" Height="34" FontSize="15" SelectedItem="{Binding AlmacenSelected}" materialDesign:HintAssist.Hint="Seleccione" 
+                              Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"  IsEditable="True" ItemsSource="{Binding ComboAlmacen}" SelectedValue="{Binding InsumoAlmacen.id_almacen}" DisplayMemberPath="nombre" SelectedValuePath="id" />
+                        <Label VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontSize="15" Margin="0,15,20,16">Insumo:</Label>
+                        
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="0,8" Width="170">
+                            <materialDesign:Badged Badge="{Binding Cantidad}" BadgePlacementMode="TopLeft" Margin="0,0,0,0">
+                                <ComboBox Grid.Row="1" HorizontalAlignment="Left" Grid.Column="1"  Height="34" Width="170" SelectedItem="{Binding InsumoSelected, Mode=TwoWay,
+                                                    UpdateSourceTrigger=PropertyChanged}" FontSize="15" materialDesign:HintAssist.Hint="Seleccione" Text="{Binding TextoInsumoBuscador}"
+                              Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"  IsEditable="True" ItemsSource="{Binding ComboInsumo}" 
+                                  SelectedValue="{Binding InsumoAlmacen.id_insumo}" DisplayMemberPath="nombre" SelectedValuePath="id" />
+                            </materialDesign:Badged>
+
+                            <!--<TextBlock Text="{Binding Cantidad}" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15" Margin="10"/>-->
+                        </StackPanel>
+                        <Label VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontSize="15" Margin="0,15,20,16">Cantidad:</Label>
+                        <TextBox x:Name="txtnom" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1"  FontSize="15" Text="{Binding InsumoAlmacen.cantidad, UpdateSourceTrigger=PropertyChanged}" Width="170" 
+                               Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="0.00" Height="34" TextChanged="Txtnom_TextChanged" />
+
+                    </Grid>
+                    <Grid Grid.Row="3" VerticalAlignment="Center">
+
+                        <Button Grid.Column="0" VerticalAlignment="Center" Width="150" Height="40" Grid.Row="0" Margin="10,0,10,0" HorizontalAlignment="Stretch" 
+                                            Style="{StaticResource MaterialDesignFlatButtonSuccess}"
+                                            Command="{Binding GuardarCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0"/>
+                                <TextBlock Text="Guardar"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </ScrollViewer>
+        
+        <ScrollViewer Grid.Row="0" x:Name="ContentRegistro" Grid.RowSpan="2">
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Operacion_Reporte}" Value="Llenar almacen">
+                            <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Operacion_Reporte}" Value="Movimiento almacen">
+                            <Setter Property="FrameworkElement.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ScrollViewer.Style>
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="32" MinWidth="400" Background="White" VerticalAlignment="Top" MaxWidth="600" UniformCornerRadius="15"  MaxHeight="800" Margin="0,80,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="10 10 0 0"  HorizontalAlignment="Left" Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="30" Text="Movimientos" />
+                    <materialDesign:Chip HorizontalAlignment="Right" FontSize="20" Content="{Binding Operacion_Reporte}" Background="#25A1FC" Foreground="White"/>
+                    <!--BOTON MOV ENTRE ALMACEN-->
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button Width="auto" Height="50" Grid.Row="0" HorizontalAlignment="Center" 
+                             Command="{Binding BtnMovAlmInsCommand}"  Grid.Column="1" >
+                            <StackPanel Orientation="Horizontal" Width="auto">
+                                <materialDesign:PackIcon Kind="ChartArc" Margin="0,0,10,0"  Width="30" Height="30" Foreground="Orange"/>
+                                <TextBlock Text="Mov. entre Almacen" VerticalAlignment="Center" FontSize="18" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <!--DATOS-->
+                    <Grid Grid.Row="2" Margin="15"  Width="auto" HorizontalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="175"/>
+                            <ColumnDefinition Width="230"/>
+                            <ColumnDefinition Width="105"/>
+                        </Grid.ColumnDefinitions>
+                        <Label VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontSize="15" Margin="0,15,20,16">Almacén de salida:</Label>
+                        <ComboBox  Grid.Row="0" HorizontalAlignment="Left"  Grid.Column="1"  Width="170" Height="34" FontSize="15" SelectedItem="{Binding AlmacenSelected}" materialDesign:HintAssist.Hint="Seleccione" 
+                                                  Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"  IsEditable="True" ItemsSource="{Binding ComboAlmacen}" SelectedValue="{Binding InsumoAlmacen.id_almacen}" DisplayMemberPath="nombre" SelectedValuePath="id" />
+                        <Label VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontSize="15" Margin="0,15,20,16">Insumo:</Label>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="0,8" Width="170">
+                            <materialDesign:Badged Badge="{Binding Cantidad}" BadgePlacementMode="TopLeft" Margin="0,0,0,0">
+                                <ComboBox HorizontalAlignment="Right" Height="34" Width="140" SelectedItem="{Binding InsumoSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" materialDesign:HintAssist.Hint="Seleccione"
+                                                  Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"  IsEditable="True"  ItemsSource="{Binding ComboInsumo}" SelectedValue="{Binding InsumoAlmacen.id_insumo, Mode=TwoWay}" DisplayMemberPath="nombre" SelectedValuePath="id" />
+                            </materialDesign:Badged>
+                        </StackPanel>
+
+                        <Label VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontSize="15" Margin="0,15,20,16">Cantidad:</Label>
+                        <TextBox x:Name="txtnom2" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1"  FontSize="15" Text="{Binding InsumoAlmacen.cantidad}" Width="170" 
+                                                   Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  materialDesign:HintAssist.Hint="0.00" Height="34" TextChanged="Txtnom2_TextChanged" />
+                        <Label VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontSize="15" Margin="0,15,20,16">Almacén de Entrada:</Label>
+
+                        <ComboBox x:Name="cboalmacensasl" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" Height="34" Width="170" FontSize="15" materialDesign:HintAssist.Hint="Seleccione" 
+                                                  Style="{StaticResource MaterialDesignOutlinedTextFieldComboBox}"  IsEditable="True"  ItemsSource="{Binding ComboalmacenSalida}" SelectedItem="{Binding AlmacenEntradaSelected}" SelectedValue="{Binding InsumoAlmacen.id_almacensal, Mode=TwoWay}" DisplayMemberPath="nombre" SelectedValuePath="id" />
+
+
+                    </Grid>
+                    <Grid Grid.Row="3" VerticalAlignment="Center">
+                        <Button Grid.Column="0" VerticalAlignment="Center" Width="150" Height="40" Grid.Row="0" Margin="10,0,10,0" HorizontalAlignment="Stretch" 
+                                            Style="{StaticResource MaterialDesignFlatButtonSuccess}" Command="{Binding MovInsumoAlamcenCommand}" >
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,10,0"/>
+                                <TextBlock Text="Guardar"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

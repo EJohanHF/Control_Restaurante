@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="Capa_Presentacion_WPF.Views.Dialogs.DialogVentaporDia.DialogReporteFecha"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="240" d:DesignWidth="400" MaxWidth="500">
+    <Grid Margin="15,6,17,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <materialDesign:Card Grid.Row="0" materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="10" Background="#EDEDEE" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="24" Margin="74,0">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="REPORTE POR FECHAS" FontSize="20" Height="28" Margin="0,-6,0,0"/>
+            </StackPanel>
+        </materialDesign:Card >
+        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" Text="Desde" FontSize="20"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Hasta" FontSize="20"/>
+        <DatePicker VerticalAlignment="Center" Language="ES" Grid.Row="2" Height="34" SelectedDate="{Binding ReporFecha.desde}" Grid.Column="0" Style="{StaticResource MaterialDesignOutlinedTextFieldDatePicker}" FontSize="15" materialDesign:HintAssist.Hint="{Binding ReporFecha.desde}" Margin="10,6" ></DatePicker>
+        <DatePicker VerticalAlignment="Center" Language="ES" Grid.Row="2" Height="34" SelectedDate="{Binding ReporFecha.hasta}" Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedTextFieldDatePicker}" FontSize="15" materialDesign:HintAssist.Hint="{Binding ReporFecha.hasta}" Margin="10,6" ></DatePicker>
+       <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Width="124" Grid.Column="1" Grid.Row="0">
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonProgressAssist.Value="-1"
+                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" Command="{Binding ExportarporFechaCommand}" 
+                    materialDesign:ButtonProgressAssist.IsIndeterminate="True" Background="#0965C1" Content="Exportar" Margin="2,0"/>
+            </Grid>
+            <Grid Width="124" Grid.Column="1" Grid.Row="1">
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonProgressAssist.Value="-1"
+                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                    materialDesign:ButtonProgressAssist.IsIndeterminate="True" Background="#F74305 " Content="Cancelar" Margin="2,0" Command="materialDesign:DialogHost.CloseDialogCommand" >
+                    <Button.CommandParameter>
+                        <system:Boolean>False</system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+            </Grid>
+        </Grid >
+
+
+
+    </Grid>
+</UserControl>
